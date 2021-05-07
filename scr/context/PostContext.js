@@ -1,12 +1,16 @@
 import createDataContext from './createDataContext'
 import trackerApi from '../api/tracker';
+import createFormData from '../helpers/createFormData';
+import {navigate} from '../navigationRef';
+
+
 
 const postReducer = (state,action) => {
     switch(action.type) {
         case 'fetch_posts':
             return action.payload;
         case 'create_post':
-            return {...state,errorMessage:action.payload}
+            return {...state,errorMessage:action.payload};
         case 'error':
             return {...state,errorMessage:action.payload};
         default:
@@ -14,11 +18,19 @@ const postReducer = (state,action) => {
     }
 };
 
+const changeCategory = dispatch => (category) => {
+    setcategoryState(category);
+}
 
-const createPost = dispatch => async  (explain,uri) => {
+const createPost = dispatch => async  (explain,ResultObj,category) => {
     try {
-        console.log("create posttayız",explain,uri)
-        //await trackerApi.post("/share",explain,result);   
+        const headers = {
+            'Content-Type': 'multipart/form-data'
+          }
+
+          await trackerApi.post("/posts",createFormData(ResultObj,{ explain,category }),headers);
+          navigate('TrackList');
+        
     } catch (error) {
         console.log(error);
         dispatch({
@@ -30,6 +42,7 @@ const createPost = dispatch => async  (explain,uri) => {
 
 };
 
+
 const fetchPosts = dispatch => async () => {
     const response= await trackerApi.get('/discover');
     dispatch({type:'fetch_posts',payload:response.data});
@@ -37,6 +50,6 @@ const fetchPosts = dispatch => async () => {
 
 export const {Provider,Context} = createDataContext(
     postReducer,
-    {createPost,fetchPosts},
+    {createPost,fetchPosts,changeCategory},
     {errorMessage:''}
 )

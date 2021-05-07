@@ -11,3 +11,7 @@ web-build/
 
 # macOS
 .DS_Store
+scr/hooks/useLocation.js
+scr/context/TrackContex.js
+scr/context/LocationContext.js
+scr/hooks/useSaveTrack.js
