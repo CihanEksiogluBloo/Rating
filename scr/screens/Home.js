@@ -1,22 +1,37 @@
-import React,{useContext} from 'react';
-import {StyleSheet,TouchableOpacity} from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import React,{useContext,useEffect} from 'react';
+import {StyleSheet,TouchableOpacity,FlatList} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import PostView from '../components/PostView';
+import {getLocalhostUri} from '../api/localhostUri';
+import {Context as PostContext} from '../context/PostContext';
+import {NavigationEvents} from 'react-navigation';
 
 
-const HomeScreen = ({navigation}) => {
-
-
-
+const HomeScreen = () => {
+    const localhostUri = getLocalhostUri();
+    const {state,fetchImage} = useContext(PostContext);
+    
+    useEffect(()=>{
+      fetchImage();
+  },[])
 
     return <>
+    <NavigationEvents onWillBlur={fetchImage} />
 
-
-
-
+    <FlatList 
+    data={state}
+    keyExtractor={(item) => item._id}
+    renderItem={( {item} ) => {
+      return (
+        <PostView
+        localhostUri={localhostUri}
+        item={item}
+        />
     
+      );
+    }}
+    />
 
-    
     </>
 }
 

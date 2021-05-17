@@ -14,6 +14,7 @@ import HomeScreen from './scr/screens/Home';
 import ResolveAuthScreen from './scr/screens/ResolveAuthScreen';
 import SettingsScreen from './scr/screens/SettingsScreen';
 import ShareScreen from './scr/screens/ShareScreen';
+import UserScreen from './scr/screens/UserScreen';
 
 import {Provider as AuthProvider} from './scr/context/AuthContext';
 import {Provider as PostProvider} from './scr/context/PostContext';
@@ -74,7 +75,7 @@ const switchNavigator = createSwitchNavigator({
     Discover:DiscoverScreen,
     Account: Account
   }),
-  
+  UserScreen
 },{
   
 });

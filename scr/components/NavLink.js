@@ -8,7 +8,7 @@ const NavLink = ({navigation,text,routeName}) => {
     <TouchableOpacity onPress = {() => navigation.navigate(routeName)}>
     <Spacer>
             <Text style={styles.link}>
-                {text}.
+                {text}
             </Text>
     </Spacer>
     </TouchableOpacity>

@@ -78,7 +78,7 @@ const ImagePickerComp = ({onSubmit,category,errorMessage}) => {
                     style={{justifyContent: 'flex-start'}} 
 
                     onPress={() => onSubmit(input,ResultObj,category)} />
-                </View>
+                    </View>
                 <View style={{flex:1,marginHorizontal:5}}>
                     <Button
                     buttonStyle={{

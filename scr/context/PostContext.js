@@ -7,8 +7,10 @@ import {navigate} from '../navigationRef';
 
 const postReducer = (state,action) => {
     switch(action.type) {
+        case 'fetch_image':
+            return action.payload
         case 'fetch_posts':
-            return action.payload;
+            return action.payload
         case 'create_post':
             return {...state,errorMessage:action.payload};
         case 'error':
@@ -48,8 +50,23 @@ const fetchPosts = dispatch => async () => {
     dispatch({type:'fetch_posts',payload:response.data});
 }
 
+const fetchImage  = dispatch => async () => {
+    try {
+        //const response= await trackerApi.get(`/images/${dir}/:${name}`);
+        const response= await trackerApi.get("/userposts");
+        dispatch({type:'fetch_image',payload:response.data});
+        
+
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+
+}
+
 export const {Provider,Context} = createDataContext(
     postReducer,
-    {createPost,fetchPosts,changeCategory},
-    {errorMessage:''}
+    {createPost,fetchPosts,changeCategory,fetchImage},
+    {errorMessage:'',defaultImage:"",defaultPP:""}
 )
