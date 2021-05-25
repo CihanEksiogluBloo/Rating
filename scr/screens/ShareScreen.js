@@ -1,5 +1,5 @@
 import React,{useContext,useState}  from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,ScrollView} from 'react-native';
 import PhotoPicker from '../components/PhotoPicker';
 import {Context as PostContext} from '../context/PostContext';
 import {ButtonGroup } from 'react-native-elements';
@@ -25,7 +25,7 @@ const ShareScreen = () => {
 
 
     return (
-        <SafeAreaProvider>
+        <ScrollView>
         <Spacer/>
         <ButtonGroup
                 onPress={updateIndex}
@@ -55,7 +55,7 @@ const ShareScreen = () => {
 
          
         
-        </SafeAreaProvider>
+        </ScrollView>
     )
 
 

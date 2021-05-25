@@ -1,11 +1,10 @@
 import React,{useContext,useEffect} from 'react';
-import {StyleSheet,TouchableOpacity,FlatList} from 'react-native';
+import {StyleSheet,TouchableOpacity,FlatList,View} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import PostView from '../components/PostView';
 import {getLocalhostUri} from '../api/localhostUri';
 import {Context as PostContext} from '../context/PostContext';
 import {NavigationEvents} from 'react-navigation';
-
 
 const HomeScreen = () => {
     const localhostUri = getLocalhostUri();
@@ -22,11 +21,13 @@ const HomeScreen = () => {
     data={state}
     keyExtractor={(item) => item._id}
     renderItem={( {item} ) => {
-      return (
+        
+      return ( <View>
         <PostView
         localhostUri={localhostUri}
         item={item}
         />
+        </View>
     
       );
     }}

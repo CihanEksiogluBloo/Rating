@@ -1,83 +1,81 @@
-import React,{useState,useContext} from 'react';
-import {StyleSheet,FlatList,ScrollView} from 'react-native';
+import React,{useState,useContext,useEffect} from 'react';
+import {StyleSheet,FlatList,ScrollView,View} from 'react-native';
 import {Text,SearchBar,Button} from 'react-native-elements';
 import {SafeAreaView} from "react-native-safe-area-context";
 import { MaterialIcons } from '@expo/vector-icons';
 import Spacer from '../components/Spacer';
 import {Context as PostContext} from '../context/PostContext';
 import {NavigationEvents} from 'react-navigation';
-import PostView from '../components/PostView';
 import MiniPost from '../components/MiniPost';
 import {getLocalhostUri} from '../api/localhostUri';
+import CatButtonGroup from '../components/CatButtonGroups';
+
 
 const DiscoverScreen = ({navigation}) => {
-    //const {state,fetchPosts} = useContext(PostContext);
+    const {state,fetchPosts,fetchPostsWithCategory} = useContext(PostContext);
     const [search,updateSearch] = useState("");
     const localhostUri = getLocalhostUri();
 
+    //category === Object { "selectedIndex": 1, }
 
-    /*
-    <FlatList 
-        data={state}
-        keyExtractor={(item)=> item._id }
-        renderItem={({item}) => {
-            return <Text>{item.nick_name}</Text>
-        }}
-        />
+    useEffect(()=>{
+        fetchPosts();
+    },[])
 
-        <NavigationEvents 
-    //onWillFocus={fetchPosts} 
-    />
+    const press = (category) => {
+        fetchPostsWithCategory(category);
+    }
 
-    */
 
-    
+
+
 
     return (
-    <SafeAreaView  forceInset={{ top: 'always' }}>
-    
+    <SafeAreaView  forceInset={{ top: "always" }}>
+    <NavigationEvents onWillBlur={fetchPosts} />
     <Spacer>
-    <SearchBar
-        
-        placeholder="Type Here..."
-        onChangeText={(text)=> updateSearch(text)}
-        value={search}
-        
-        containerStyle={styles.SearchBarContainer}
-        inputContainerStyle={styles.SearchBarInput}
-        inputStyle={{color:'rgb(123,104,238)'}}
-        
-      />
-
-      </Spacer>
-        <Text style={{fontSize:48}}> Discover Screen </Text>  
-        <ScrollView>
-        <MiniPost 
-        localhostUri={localhostUri}
-        
+        <SearchBar   
+            placeholder="Type Here..."
+            onChangeText={(text)=> updateSearch(text)}
+            value={search}
+            
+            containerStyle={styles.SearchBarContainer}
+            inputContainerStyle={styles.SearchBarInput}
+            inputStyle={{color:'rgb(123,104,238)'}}
         />
-        <MiniPost 
-        localhostUri={localhostUri}
-        
-        />
-        <MiniPost 
-        localhostUri={localhostUri}
-        
-        />
-        <MiniPost 
-        localhostUri={localhostUri}
-        
-        />
-        <MiniPost 
-        localhostUri={localhostUri}
-        
-        />
-        <MiniPost 
-        localhostUri={localhostUri}
-        
-        />
-        </ScrollView>
+    </Spacer>
     
+    <CatButtonGroup 
+        press={press}
+    />
+    
+      
+
+
+    <FlatList 
+        data ={state}
+        numColumns={3}
+        keyExtractor ={(item) => item._id}
+        renderItem= {({item}) => {
+            return (
+            <View style={{flexDirection:"row"}}>
+                <MiniPost 
+                localhostUri={localhostUri}
+                imageName={item.image}
+                profile_image={item.profile_image}
+                nick_name={item.nick_name}
+                star={item.star}
+                />
+            </View>
+            )
+
+        }}
+
+        />
+        
+        
+
+
     </SafeAreaView>
     
 
@@ -105,6 +103,15 @@ const styles = StyleSheet.create({
         borderBottomColor:'rgba(158, 150, 150, 0.0)',
         borderTopColor:'rgba(158, 150, 150, 0.0)',
 
+    },
+    ButtonGroupStyle:{
+        height:50,
+        borderRadius:10,
+    },
+    ButtonGrouptextStyle:{
+        fontSize:12,
+        fontWeight:"bold"
+        
     }
 
 

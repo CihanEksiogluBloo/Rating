@@ -57,8 +57,9 @@ const ImagePickerComp = ({onSubmit,category,errorMessage}) => {
             
             <Input 
             leftIcon={{ type: 'font-awesome', name: 'comment' }}
-            placeholder="Add an explain..."
+            placeholder="Add an explain... 90 Characters"
             value={input} 
+            maxLength={90}
             onChangeText={(newinput)=> setInput(newinput)}
             />
             <Spacer>

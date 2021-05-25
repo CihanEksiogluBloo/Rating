@@ -48,6 +48,12 @@ const createPost = dispatch => async  (explain,ResultObj,category) => {
 const fetchPosts = dispatch => async () => {
     const response= await trackerApi.get('/discover');
     dispatch({type:'fetch_posts',payload:response.data});
+    console.log(response)
+}
+
+const fetchPostsWithCategory = dispatch => async (category) => {
+    const response= await trackerApi.get(`/discover/${category}`);
+    dispatch({type:'fetch_posts',payload:response.data});
 }
 
 const fetchImage  = dispatch => async () => {
@@ -67,6 +73,6 @@ const fetchImage  = dispatch => async () => {
 
 export const {Provider,Context} = createDataContext(
     postReducer,
-    {createPost,fetchPosts,changeCategory,fetchImage},
+    {createPost,fetchPosts,changeCategory,fetchImage,fetchPostsWithCategory},
     {errorMessage:'',defaultImage:"",defaultPP:""}
 )
