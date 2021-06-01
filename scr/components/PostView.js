@@ -8,7 +8,7 @@ import ProfileAvatar from './ProfileAvatar';
 import SocialValuePoint from './SocialValuePoint';
 import Spacer from './Spacer';
 
-const PostView = ({localhostUri,item}) => {
+const PostView = ({localhostUri,item,ratePost}) => {
 /* item example
 item === Object {
   "__v": 0,
@@ -50,7 +50,9 @@ item === Object {
         <Text style={{maxHeight:35,maxWidth:350,textAlign:"center",margin:1}}><Text style={{fontWeight:"bold"}}>{item.nick_name}: </Text>{item.explain}</Text>
     <View style={{justifyContent:"space-between",flexDirection:"row", alignItems:"center", }}>
         <Rating 
-
+            userID={item.userID}
+            postID={item._id}
+            ratePost={ratePost}
         />
 
         <View style={{alignItems:"center",flex:1}}>

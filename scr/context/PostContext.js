@@ -15,6 +15,7 @@ const postReducer = (state,action) => {
             return {...state,errorMessage:action.payload};
         case 'error':
             return {...state,errorMessage:action.payload};
+
         default:
             return state;
     }
@@ -48,7 +49,7 @@ const createPost = dispatch => async  (explain,ResultObj,category) => {
 const fetchPosts = dispatch => async () => {
     const response= await trackerApi.get('/discover');
     dispatch({type:'fetch_posts',payload:response.data});
-    console.log(response)
+    
 }
 
 const fetchPostsWithCategory = dispatch => async (category) => {
@@ -71,8 +72,21 @@ const fetchImage  = dispatch => async () => {
 
 }
 
+const ratePost = dispatch => async (userID,postID,star) => {
+    
+    try {
+        await trackerApi.post("/rating-post",{userID,postID,star});
+
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+
+}
+
 export const {Provider,Context} = createDataContext(
     postReducer,
-    {createPost,fetchPosts,changeCategory,fetchImage,fetchPostsWithCategory},
-    {errorMessage:'',defaultImage:"",defaultPP:""}
+    {createPost,fetchPosts,changeCategory,fetchImage,fetchPostsWithCategory,ratePost},
+    {errorMessage:'',defaultImage:"",defaultPP:"",}
 )

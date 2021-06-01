@@ -8,6 +8,8 @@ const authReducer = (state,action) => {
     switch (action.type){
         case 'add_error':
             return { ...state, errorMessage: action.payload };
+        case "fetch-Profile" :
+            return action.payload;
         case 'signInorUp':
             return { errorMessage: "", token: action.payload };
         case 'clear_error' :
@@ -104,11 +106,17 @@ const signout = dispatch => async () => {
     navigate('loginFlow')
 }
 
+const fetchProfile = dispatch => async  (nick_name) => {
+    const response = await trackerApi.get(`/profile/${nick_name}`);
+    dispatch({type:"fetch-Profile",payload:response.data});
+    
+};
+
 
 
 export const {Provider,Context} = createDataContext(
     authReducer,
-    {signup,signout,signin,clearErrorMessage,tryLocalSignin},
+    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile},
     {token: null, errorMessage: ''}
 );
 

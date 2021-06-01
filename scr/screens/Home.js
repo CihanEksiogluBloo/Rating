@@ -8,7 +8,7 @@ import {NavigationEvents} from 'react-navigation';
 
 const HomeScreen = () => {
     const localhostUri = getLocalhostUri();
-    const {state,fetchImage} = useContext(PostContext);
+    const {state,fetchImage,ratePost} = useContext(PostContext);
     
     useEffect(()=>{
       fetchImage();
@@ -26,6 +26,7 @@ const HomeScreen = () => {
         <PostView
         localhostUri={localhostUri}
         item={item}
+        ratePost={ratePost}
         />
         </View>
     
