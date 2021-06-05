@@ -21,6 +21,7 @@ const localhostUri = getLocalhostUri();
 const AccountScreen = () => {
   const { fetchProfile, state } = useContext(AuthContext);
   const [veri, setVeri] = useState({});
+  
   /*
   state.data === Object {
   "posts": Array [
@@ -55,7 +56,6 @@ const AccountScreen = () => {
 
       <Profile data={state.data} />
 
-
       {state.data ? (
         <FlatList
           data={state.data.posts}
@@ -76,6 +76,7 @@ const AccountScreen = () => {
           }}
         />
         ) : null}
+        
     </SafeAreaView>
   );
 };

@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet,BottomSheet,ListItem } from "react-native";
 import { Text, Avatar, Button } from "react-native-elements";
 import { getLocalhostUri } from "../api/localhostUri";
 import SocialValuePoint from "./SocialValuePoint";
 import MiniPost from "./MiniPost";
 import Spacer from "./Spacer";
 import SpacerCustom from "./SpacerCustom";
-
+import ProfileActionButton from './ProfileActionButton';
 /*
   state.data === Object {
   "posts": Array [
@@ -33,9 +33,11 @@ import SpacerCustom from "./SpacerCustom";
  
 const localhostUri = getLocalhostUri();
 const Profile = ({ data }) => {
-  const [follow,setFollow] = useState("Follow")
+
   let color = "blue"
   let rate = "normal"
+  
+  
   data ?
     data.socialValue > 2 && data.socialValue < 3 ? (color="gold",rate="Not Bad")
     :data.socialValue > 3 && data.socialValue < 4 ? (color="green",rate="Good!")
@@ -111,20 +113,19 @@ const Profile = ({ data }) => {
                 <Text>Posts</Text>
               </View>
               <View style={styles.followStrings}>
-                <Text style={styles.followNumberText}>100</Text>
+                <Text style={styles.followNumberText}>{data.followers}</Text>
                 <Text>Followers</Text>
               </View>
               <View style={styles.followStrings}>
-                <Text style={styles.followNumberText}>100</Text>
+                <Text style={styles.followNumberText}>{data.following}</Text>
                 <Text>Following</Text>
               </View>
             </View>
             </View>
             <View style={{flexDirection:"row",justifyContent:"space-evenly", marginVertical:20}} >
-            <Button title= {follow} containerStyle={{width:160, borderRadius:10}} onPress={()=> {setFollow("Following")}} />
-            <Button title= "Message" containerStyle={{width:160, borderRadius:10}} onPress={()=> {setFollow("Following")}} />
-
-
+            <ProfileActionButton  />
+            <Button title= "Report" containerStyle={{width:160, borderRadius:10}}  />
+            
             </View>
 
           </SpacerCustom>
