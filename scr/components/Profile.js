@@ -105,7 +105,7 @@ const Profile = ({ data }) => {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-around",
-                
+
               }}
             >
               <View style={styles.followStrings}>
@@ -139,7 +139,7 @@ const Profile = ({ data }) => {
 const styles = StyleSheet.create({
   followStrings: {
     alignItems: "center",
-    marginBottom:5
+    marginBottom:5,
   },
   followNumberText: {
     fontSize: 20,

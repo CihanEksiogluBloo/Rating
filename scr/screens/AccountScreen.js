@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -13,17 +12,17 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import ProfileAvatar from "../components/ProfileAvatar";
-import { getLocalhostUri } from "../api/localhostUri";
 import Profile from "../components/Profile";
 import MiniPost from "../components/MiniPost";
-const localhostUri = getLocalhostUri();
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import SpacerCustom from "../components/SpacerCustom";
 
-const AccountScreen = () => {
+const AccountScreen = ({ navigation }) => {
   const { fetchProfile, state } = useContext(AuthContext);
   const [veri, setVeri] = useState({});
-  
+
   /*
-  state.data === Object {
+  state.myProfile.data === Object {
   "posts": Array [
     Object {
       "_id": "",
@@ -47,37 +46,36 @@ const AccountScreen = () => {
   */
 
   useEffect(() => {
-    fetchProfile("myProfile");
+    fetchProfile({ nick_name: "myProfile" });
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-
-
-      <Profile data={state.data} />
-
-      {state.data ? (
-        <FlatList
-          data={state.data.posts}
-          numColumns={3}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <MiniPost
-                  localhostUri={localhostUri}
-                  imageName={item.image}
-                  profile_image={item.profile_image}
-                  nick_name={item.nick_name}
-                  star={item.star}
-                />
-              </View>
-            );
-          }}
-        />
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SpacerCustom vertical={10}>
+        {state.myProfile ? (
+          <ScrollView>
+            <Profile data={state.myProfile.data} />
+            <FlatList
+              data={state.myProfile.data.posts}
+              numColumns={3}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <SafeAreaProvider style={{ flex: 1 }}>
+                    <MiniPost
+                      imageName={item.image}
+                      profile_image={state.myProfile.data.user.profile_image}
+                      nick_name={state.myProfile.data.user.nick_name}
+                      star={item.star}
+                    />
+                  </SafeAreaProvider>
+                );
+              }}
+            />
+          </ScrollView>
         ) : null}
-        
-    </SafeAreaView>
+      </SpacerCustom>
+    </SafeAreaProvider>
   );
 };
 AccountScreen.navigationOptions = ({ navigation }) => {

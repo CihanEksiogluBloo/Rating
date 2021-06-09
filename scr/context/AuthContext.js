@@ -9,13 +9,15 @@ const authReducer = (state,action) => {
         case 'add_error':
             return { ...state, errorMessage: action.payload };
         case "fetch-Profile" :
-            return action.payload;
+            return {...state,userProfile: action.payload};
         case 'signInorUp':
             return { errorMessage: "", token: action.payload };
         case 'clear_error' :
             return { ...state, errorMessage: "" };
         case 'signout':
             return { token: null, errorMessage: "" };
+        case "fetch-myProfile" :
+                return {...state,myProfile:action.payload};
         default:
             return state;
     };
@@ -26,7 +28,7 @@ const tryLocalSignin = dispatch =>  () => {
     
     if (token) {
         dispatch({type: 'signInorUp', payload: token});
-        navigate('TrackList');
+        navigate('HomeSrc');
         
     } else {
         navigate('loginFlow');
@@ -48,7 +50,7 @@ const signup = dispatch => {
            
             // navigate to mainflow
 
-            navigate('TrackList');
+            navigate('HomeSrc');
         }
         catch(err){
             // if signin up fails, we probably need to reflect an error message somewhere
@@ -76,7 +78,7 @@ const signin = dispatch => async  ({email,password}) => {
                 payload:response.data.token
             })
             // Handle success by updating state
-            navigate("TrackList");
+            navigate("HomeSrc");
         } catch (error) {
             // Handle failure by showing error message(somehow)
             console.log(error);
@@ -107,8 +109,10 @@ const signout = dispatch => async () => {
 }
 
 const fetchProfile = dispatch => async  (nick_name) => {
-    const response = await trackerApi.get(`/profile/${nick_name}`);
-    dispatch({type:"fetch-Profile",payload:response.data});
+    
+    const dispatchType = nick_name.nick_name == "myProfile" ? "fetch-myProfile" : "fetch-Profile"
+    const response = await trackerApi.get(`/profile/${nick_name.nick_name}`);
+    dispatch({type:dispatchType,payload:response.data});
     
 };
 
@@ -117,6 +121,6 @@ const fetchProfile = dispatch => async  (nick_name) => {
 export const {Provider,Context} = createDataContext(
     authReducer,
     {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile},
-    {token: null, errorMessage: ''}
+    {token: null, errorMessage: '',myProfile:[],userProfile:[]}
 );
 

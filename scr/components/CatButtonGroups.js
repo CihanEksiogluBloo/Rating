@@ -9,8 +9,7 @@ const CatButtonGroup = ({press}) => {
 
     const updateIndex = (category) => {
             setCategory(category);
-            press(buttons[category]);
-            
+            press([]);
     }
 
     return (

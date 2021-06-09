@@ -18,6 +18,7 @@ import ResolveAuthScreen from "./scr/screens/ResolveAuthScreen";
 import SettingsScreen from "./scr/screens/SettingsScreen";
 import ShareScreen from "./scr/screens/ShareScreen";
 import UserScreen from "./scr/screens/UserScreen";
+import CommentsScreen from "./scr/screens/CommentsScreen";
 
 import { Provider as AuthProvider } from "./scr/context/AuthContext";
 import { Provider as PostProvider } from "./scr/context/PostContext";
@@ -27,11 +28,16 @@ import { setNavigator } from "./scr/navigationRef";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFonts } from 'expo-font';
 
 const HomeList = createStackNavigator({
-  TrackList: HomeScreen,
+  HomeSrc: {screen:HomeScreen,navigationOptions:{
+    title:"Rating",
+    headerTitleStyle:{fontWeight: "bold", fontStyle:"italic"}
+  }},
   Share: ShareScreen,
-  PostDetail: PostDetailScreen,
+  CommentsSrc: CommentsScreen,
+  UserSrc: UserScreen,
 });
 
 HomeList.navigationOptions = {
@@ -41,6 +47,7 @@ HomeList.navigationOptions = {
 const Account = createStackNavigator({
   Account: AccountScreen,
   Settings: SettingsScreen,
+  PostDetail: PostDetailScreen,
 });
 
 Account.navigationOptions = ({ navigation }) => {
@@ -59,6 +66,32 @@ Account.navigationOptions = ({ navigation }) => {
   };
 };
 
+const Discover = createStackNavigator({
+  Discover: {
+    screen:DiscoverScreen,
+    navigationOptions:{
+      headerShown:false
+    }
+  },
+  PostDetailDiscover: {
+    screen:PostDetailScreen,
+    navigationOptions:{
+      title:"Post"
+    }
+    
+  },
+},
+
+
+);
+
+Discover.navigationOptions = ({ navigation }) => {
+  return {
+    tabBarIcon: <MaterialIcons name="emoji-people" size={20} color="black" />,
+
+  };
+};
+
 const switchNavigator = createSwitchNavigator(
   {
     ResolveAuthScreen,
@@ -68,10 +101,10 @@ const switchNavigator = createSwitchNavigator(
     }),
     mainFlow: createBottomTabNavigator({
       Home: HomeList,
-      Discover: DiscoverScreen,
+      Discover: Discover,
       Account: Account,
     }),
-    UserScreen,
+    
   },
   {}
 );
