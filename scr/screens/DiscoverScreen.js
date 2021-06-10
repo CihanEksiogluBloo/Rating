@@ -10,16 +10,16 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
-import Spacer from "../components/Spacer";
+import Spacer from "../components/Spacers/Spacer";
 import { Context as PostContext } from "../context/PostContext";
-import MiniPost from "../components/MiniPost";
+import MiniPost from "../components/postComp/MiniPost";
 import { getLocalhostUri } from "../api/localhostUri";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import SpacerCustom from "../components/SpacerCustom";
+import SpacerCustom from "../components/Spacers/SpacerCustom";
 import { Button } from "react-native";
 
 const DiscoverScreen = ({ navigation }) => {
-  const { state, fetchPosts, resetDiscover } = useContext(PostContext);
+  const { state, fetchPosts, resetDiscover,ratePost } = useContext(PostContext);
   const [search, updateSearch] = useState("");
   const localhostUri = getLocalhostUri();
   const [refreshing, setRefreshing] = useState(false);
@@ -35,7 +35,18 @@ const DiscoverScreen = ({ navigation }) => {
   }, []);
 
   //category === Object { "selectedIndex": 1, }
-
+  /* item === Object {
+  "_id": "",
+  "category": "",
+  "date": "",
+  "explain": "",
+  "image": "default.jpg",
+  "nick_name": "5",
+  "profile_image": "1.jpeg",
+  "star": 3,
+  "userID": "",
+}
+*/
   useEffect(() => {
     LogBox.ignoreLogs([
       "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.",
@@ -77,6 +88,10 @@ const DiscoverScreen = ({ navigation }) => {
                     nick_name={item.nick_name}
                     star={item.star}
                     screen="PostDetailDiscover"
+                    userID={item.userID}
+                    postID={item._id}
+                    ratePost={ratePost}
+                    explain={item.explain}
                   />
                 </View>
               );

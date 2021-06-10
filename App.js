@@ -28,7 +28,7 @@ import { setNavigator } from "./scr/navigationRef";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useFonts } from 'expo-font';
+
 
 const HomeList = createStackNavigator({
   HomeSrc: {screen:HomeScreen,navigationOptions:{

@@ -3,7 +3,7 @@ import {StyleSheet,ScrollView} from 'react-native';
 import PhotoPicker from '../components/PhotoPicker';
 import {Context as PostContext} from '../context/PostContext';
 import {ButtonGroup } from 'react-native-elements';
-import Spacer from '../components/Spacer';
+import Spacer from '../components/Spacers/Spacer';
 
 
 

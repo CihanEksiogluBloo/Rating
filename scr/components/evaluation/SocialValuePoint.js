@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {View,StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
-import SpacerCustom from './SpacerCustom';
+import SpacerCustom from "../Spacers/SpacerCustom";
 
 const color = "gold"
 const SocialValuePoint = ({star}) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Image, View, Platform,TouchableOpacity,StyleSheet } from 'react-native';
 import {Input,Text,Button} from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
-import Spacer from './Spacer';
+import Spacer from './Spacers/Spacer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';

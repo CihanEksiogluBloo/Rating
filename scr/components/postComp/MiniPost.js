@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Image, Button, Overlay, Avatar } from "react-native-elements";
-import ProfileAvatar from "./ProfileAvatar";
-import Rating from "./Rating";
-import SocialValuePoint from "./SocialValuePoint";
-import SpacerCustom from "./SpacerCustom";
-import { getLocalhostUri } from "../api/localhostUri";
+import ProfileAvatar from "../ProfileComps/ProfileAvatar";
+import Rating from "../evaluation/Rating";
+import SocialValuePoint from "../evaluation/SocialValuePoint";
+import SpacerCustom from "../Spacers/SpacerCustom";
+import { getLocalhostUri } from "../../api/localhostUri";
 import { withNavigation } from "react-navigation";
 
 const localhostUri = getLocalhostUri();
@@ -22,18 +22,39 @@ const MiniPost = ({
   nick_name,
   star,
   navigation,
-  screen
+  screen,
+  userID,
+  postID,
+  ratePost,
+  explain,
 }) => {
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
   };
 
-
   return (
     <View>
       <SpacerCustom all={5}>
-        <TouchableOpacity onLongPress={toggleOverlay} delayLongPress={100} onPress={()=> navigation.navigate(screen,{data:"yazi"})}>
+        <TouchableOpacity
+          onLongPress={toggleOverlay}
+          delayLongPress={100}
+          onPress={() =>
+            navigation.navigate(screen, {data:{
+              imageName,
+              profile_image,
+              nick_name,
+              star,
+              navigation,
+              screen,
+              userID,
+              postID,
+              ratePost,
+              explain,
+            }
+            })
+          }
+        >
           <Image
             source={{ uri: `${localhostUri}/posts/${imageName}` }}
             style={{ height: 160, width: 120 }}
@@ -42,17 +63,16 @@ const MiniPost = ({
         </TouchableOpacity>
 
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <ProfileAvatar
+              localhostUri={localhostUri}
+              profile_image={profile_image}
+              nick_name={nick_name}
+            />
 
-              <ProfileAvatar
-                localhostUri={localhostUri}
-                profile_image={profile_image}
-                nick_name={nick_name}
-              />
-
-
-              <SocialValuePoint star={star} />
-
+            <SocialValuePoint star={star} />
           </View>
 
           <Image
@@ -61,7 +81,7 @@ const MiniPost = ({
             PlaceholderContent={<ActivityIndicator />}
           />
 
-          <Rating />
+          <Rating userID={userID} postID={postID} ratePost={ratePost} />
         </Overlay>
       </SpacerCustom>
     </View>

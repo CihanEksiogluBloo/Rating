@@ -11,8 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import PostView from "../components/PostView";
-import { getLocalhostUri } from "../api/localhostUri";
+import PostView from "../components/postComp/PostView"
 import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -21,12 +20,10 @@ const wait = (timeout) => {
 };
 
 const HomeScreen = () => {
-
-  const localhostUri = getLocalhostUri();
   const { state, ratePost, fetchFollowedPosts, resetPost } =
     useContext(PostContext);
   const [refreshing, setRefreshing] = useState(false);
-/*
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     resetPost();
@@ -40,8 +37,8 @@ const HomeScreen = () => {
     ]);
     fetchFollowedPosts();
   }, []);
-*/
-  return<View></View>; (
+
+  return (
     <SafeAreaProvider style={styles.container}>
       <KeyboardAvoidingView
         style={styles.keyboardAvoidingViewContainer}
@@ -68,8 +65,13 @@ const HomeScreen = () => {
                 return (
                   <View>
                     <PostView
-                      localhostUri={localhostUri}
-                      item={item}
+                      profile_image={item.profile_image}
+                      nick_name={item.nick_name}
+                      star={item.star}
+                      image={item.image}
+                      explain={item.explain}
+                      postID={item._id}
+                      userID={item.userID}
                       ratePost={ratePost}
                     />
                   </View>

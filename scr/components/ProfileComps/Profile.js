@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from "react";
 import { View, StyleSheet,BottomSheet,ListItem } from "react-native";
 import { Text, Avatar, Button } from "react-native-elements";
-import { getLocalhostUri } from "../api/localhostUri";
-import SocialValuePoint from "./SocialValuePoint";
-import MiniPost from "./MiniPost";
-import Spacer from "./Spacer";
-import SpacerCustom from "./SpacerCustom";
+import { getLocalhostUri } from "../../api/localhostUri";
+import SocialValuePoint from "../evaluation/SocialValuePoint";
+import MiniPost from "../postComp/MiniPost";
+import Spacer from "../Spacers/Spacer";
+import SpacerCustom from "../Spacers/SpacerCustom";
 import ProfileActionButton from './ProfileActionButton';
 /*
   state.data === Object {

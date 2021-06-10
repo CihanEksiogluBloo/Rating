@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Avatar } from "react-native-elements";
-import NavLink from "./NavLink";
-import SpacerCustom from "./SpacerCustom";
-import { getLocalhostUri } from "../api/localhostUri";
+import NavLink from "../NavigateComps/NavLink";
+import SpacerCustom from "../Spacers/SpacerCustom";
+import { getLocalhostUri } from "../../api/localhostUri";
 
 const localhostUri = getLocalhostUri();
 

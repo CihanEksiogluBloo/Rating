@@ -1,12 +1,12 @@
 import React, { useContext,useEffect } from "react";
 import { View, Text, TouchableOpacity,FlatList,Button,ScrollView,LogBox,StyleSheet } from "react-native";
 import {Context as AuthContext} from '../context/AuthContext';
-import MiniPost from '../components/MiniPost';
+import MiniPost from '../components/postComp/MiniPost';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getLocalhostUri } from "../api/localhostUri";
-import Profile from '../components/Profile';
+import Profile from '../components/ProfileComps/Profile';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SpacerCustom from "../components/SpacerCustom";
+import SpacerCustom from "../components/Spacers/SpacerCustom";
 
 const localhostUri = getLocalhostUri();
 const UserScreen = ({ navigation }) => {

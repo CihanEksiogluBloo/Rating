@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text,Button,Input  } from "react-native-elements";
-import Spacer from "../components/Spacer";
+import CommentsOnPost from "../components/postComp/CommentsOnPost";
+import Spacer from "../components/Spacers/Spacer";
 import { Context as PostContext } from "../context/PostContext";
 
 const CommentsScreen = ({ navigation }) => {
@@ -14,6 +15,7 @@ const CommentsScreen = ({ navigation }) => {
       "comment": "this is a comment example",
       "nick_name": "Nick",
       "profile_image": "default.jpg",
+      "user_rating": 3.63,
     },
     ...{},
   ]
@@ -25,8 +27,17 @@ const CommentsScreen = ({ navigation }) => {
   return (
     <View>
     <Spacer>
-      <Input placeholder='BASIC INPUT'/>
+      <Input placeholder='Comment... (Max 466 Characters.)' maxLength={466} />
       <Button onPress={()=> console.log(state.comments)} title="button" />
+      {state.comments[0] ? <CommentsOnPost profile_image={state.comments[0].user.profile_image} nick_name={state.comments[0].user.nick_name} star={state.comments[0].user.user_rating} comment={state.comments[0].comment} /> 
+        : <Text>Loading...</Text>
+      }
+      {state.comments[0] ? <CommentsOnPost profile_image={state.comments[0].user.profile_image} nick_name={state.comments[0].user.nick_name} star={state.comments[0].user.user_rating} comment={state.comments[0].comment} /> 
+        : <Text>Loading...</Text>
+      }
+      {state.comments[0] ? <CommentsOnPost profile_image={state.comments[0].user.profile_image} nick_name={state.comments[0].user.nick_name} star={state.comments[0].user.user_rating} comment={state.comments[0].comment} /> 
+        : <Text>Loading...</Text>
+      }
     </Spacer>
     </View>
   );

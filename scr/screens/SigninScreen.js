@@ -1,7 +1,7 @@
 import React,{useContext} from 'react';
 import {StyleSheet,View} from 'react-native';
 import AuthForm from '../components/AuthForm';
-import NavLink from '../components/NavLink';
+import NavLink from "../components/NavigateComps/NavLink";
 import {Context} from '../context/AuthContext';
 import {NavigationEvents} from 'react-navigation';
 
