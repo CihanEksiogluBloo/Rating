@@ -9,9 +9,11 @@ const createFormData = (ResultObj,others) => {
       Platform.OS === "android" ? ResultObj.uri : ResultObj.uri.replace("file://", "")
   });
 
-  Object.keys(others).forEach(key => {
+  {others ? Object.keys(others).forEach(key => {
       data.append(key, others[key]);
-    });
+    })
+  
+  : console.log("no others")}
 
   
 

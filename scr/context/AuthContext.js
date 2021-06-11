@@ -2,6 +2,7 @@ import createDataContext from './createDataContext';
 import trackerApi from '../api/tracker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {navigate} from '../navigationRef';
+import createFormData from "../helpers/createFormData";
 
 
 const authReducer = (state,action) => {
@@ -36,14 +37,45 @@ const tryLocalSignin = dispatch =>  () => {
         navigate('loginFlow');
     }
 };
+const updateProfileImage = (dispatch) => async (ResultObj) => {
+    try {
+        console.log(ResultObj)
+      const headers = {
+        "Content-Type": "multipart/form-data",
+      };
+  
+      await trackerApi.post(
+        "/profileImageUpdate",
+        createFormData(ResultObj),
+        headers
+      );
+      navigate("Account");
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: "error",
+        payload: "someting went wrong with share",
+      });
+    }
+  };
 
-
+const updateInfoUser = (dispatch) => async (name,about) => {
+    try {
+      const response = await trackerApi.post("/profileInfoUpdate", { name,about });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: "error",
+        payload: "someting went wrong with share",
+      });
+    }
+  };
 
 const signup = dispatch => {
-    return async ({email,password}) => {
+    return async ({email,password,nick_name}) => {
         // make api request to sign up with that email and password
         try {
-            const response = await trackerApi.post('/signup',{email,password})
+            const response = await trackerApi.post('/signup',{email,password,nick_name})
         
             // if we sign up, modify our state, and say that we are authenticated
             
@@ -127,7 +159,7 @@ const resetUserProfile = dispatch =>  () => {
 
 export const {Provider,Context} = createDataContext(
     authReducer,
-    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile,resetUserProfile},
+    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile,resetUserProfile,updateProfileImage,updateInfoUser},
     {token: null, errorMessage: '',myProfile:[],userProfile:[]}
 );
 

@@ -1,5 +1,5 @@
 import React,{useContext} from 'react';
-import {View,StyleSheet} from 'react-native';
+import {View,StyleSheet,ScrollView} from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
 import NavLink from "../components/NavigateComps/NavLink";
@@ -21,22 +21,24 @@ const SignupScreen = ({navigation}) => {
 
     return (
         <View style = {styles.container}>
+        <ScrollView>
 
         <AuthForm 
         headerText= "Sign Up For Tracker"
         errorMessage={state.errorMessage}
         submitButtonText="Sign Up"
         onSubmit={signup}
+        upPage={true}
         />
-
+      <View style={{alignItems:"center"}}>
         <NavLink 
         text="Already have an account? Sign in instead."
         routeName="Signin"
         />
+      </View>
 
 
-
-        
+      </ScrollView>
         </View>
      
      
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1,//View ekranın tamamını kaplaması için
         justifyContent: 'center',
-        marginBottom: 250,
+        
         
 
     },
