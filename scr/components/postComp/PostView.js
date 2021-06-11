@@ -91,7 +91,7 @@ item === Object {
               margin: 1,
             }}
           >
-            <Text style={{ fontWeight: "bold",color:"#ffffff99" }}>{nick_name}: </Text>
+            <Text style={{ fontWeight: "bold",color:"#867ae9" }}>{nick_name}: </Text>
             {explain}
           </Text>
           <View

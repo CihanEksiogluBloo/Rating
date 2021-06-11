@@ -27,9 +27,7 @@ const postReducer = (state, action) => {
   }
 };
 
-const changeCategory = (dispatch) => (category) => {
-  setcategoryState(category);
-};
+
 
 const createPost = (dispatch) => async (explain, ResultObj, category) => {
   try {
@@ -84,8 +82,16 @@ const fetchImage = (dispatch) => async () => {
 
 const fetchPostComments = (dispatch) => async (postID) => {
   try {
-    const response = await trackerApi.post("/comments", { postID });
+    const response = await trackerApi.post("/comments",{postID});
     dispatch({ type: "fetch_comments", payload: response.data.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const PostCommenting = (dispatch) => async (postID,comment) => {
+  try {
+    await trackerApi.post(`/comments/${postID}`, { comment });
   } catch (error) {
     console.log(error);
   }
@@ -104,13 +110,13 @@ export const { Provider, Context } = createDataContext(
   {
     createPost,
     fetchPosts,
-    changeCategory,
     fetchImage,
     ratePost,
     fetchFollowedPosts,
     resetPost,
     fetchPostComments,
-    resetDiscover
+    resetDiscover,
+    PostCommenting
   },
   {
     errorMessage: "",

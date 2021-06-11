@@ -28,6 +28,7 @@ import { setNavigator } from "./scr/navigationRef";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import EditProfile from "./scr/screens/EditProfile";
 
 
 const HomeList = createStackNavigator({
@@ -48,6 +49,7 @@ const Account = createStackNavigator({
   Account: AccountScreen,
   Settings: SettingsScreen,
   PostDetail: PostDetailScreen,
+  EditSrc: EditProfile,
 });
 
 Account.navigationOptions = ({ navigation }) => {

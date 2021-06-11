@@ -7,6 +7,7 @@ import {
   ScrollView,
   LogBox,
   RefreshControl,
+  Text
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -17,12 +18,15 @@ import { getLocalhostUri } from "../api/localhostUri";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 import { Button } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const DiscoverScreen = ({ navigation }) => {
-  const { state, fetchPosts, resetDiscover,ratePost } = useContext(PostContext);
+  const { state, fetchPosts, resetDiscover, ratePost } =
+    useContext(PostContext);
   const [search, updateSearch] = useState("");
   const localhostUri = getLocalhostUri();
   const [refreshing, setRefreshing] = useState(false);
+  const [searchFocus, setSearchFocus] = useState(true);
 
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -54,15 +58,21 @@ const DiscoverScreen = ({ navigation }) => {
     fetchPosts();
   }, []);
 
-  return(
-    <SafeAreaProvider style={styles.container}>
-      <KeyboardAvoidingView>
+  return (
+    <SafeAreaProvider >
+    
+
+      <KeyboardAvoidingView style={styles.container}>
+      
         <ScrollView
+          
           contentContainerStyle={styles.scrollView}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+
         >
+        
           <SpacerCustom vertical={10} />
           <Spacer>
             <SearchBar
@@ -72,33 +82,49 @@ const DiscoverScreen = ({ navigation }) => {
               containerStyle={styles.SearchBarContainer}
               inputContainerStyle={styles.SearchBarInput}
               inputStyle={{ color: "rgb(123,104,238)" }}
+              onEndEditing={() => console.log("search")}
+              onTouchEnd={() => setSearchFocus(false)}
+              onClear={() => setSearchFocus(true)}
             />
           </Spacer>
-          <FlatList
-            data={state.discover}
-            numColumns={3}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => {
-              return (
-                <View style={{ flexDirection: "row" }}>
-                  <MiniPost
-                    localhostUri={localhostUri}
-                    imageName={item.image}
-                    profile_image={item.profile_image}
-                    nick_name={item.nick_name}
-                    star={item.star}
-                    screen="PostDetailDiscover"
-                    userID={item.userID}
-                    postID={item._id}
-                    ratePost={ratePost}
-                    explain={item.explain}
-                  />
-                </View>
-              );
-            }}
-          />
+
+          {searchFocus ? (
+            <FlatList
+              data={state.discover}
+              numColumns={3}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <View style={{ flexDirection: "row" }}>
+                    <MiniPost
+                      localhostUri={localhostUri}
+                      imageName={item.image}
+                      profile_image={item.profile_image}
+                      nick_name={item.nick_name}
+                      star={item.star}
+                      screen="PostDetailDiscover"
+                      userID={item.userID}
+                      postID={item._id}
+                      ratePost={ratePost}
+                      explain={item.explain}
+                    />
+                  </View>
+                );
+              }}
+            />
+          ) : <TouchableOpacity style={{flex:1}} onPress={()=> {
+            setSearchFocus(true) 
+            console.log("trere")}  } >
+            <View style={{borderWidth:1,flex:1,alignItems:"center"}}><Text>I'm waiting for you to finish your typing...</Text><Text>If you wanna go back,</Text><Text>Touch me!</Text></View>
+            </TouchableOpacity>
+        }
+        
         </ScrollView>
+        
       </KeyboardAvoidingView>
+      
+
+      
     </SafeAreaProvider>
   );
 };
@@ -125,7 +151,11 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "#fff",
+    flex:1
   },
+  scrollView:{
+    
+  }
 });
 
 export default DiscoverScreen;
