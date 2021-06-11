@@ -21,13 +21,13 @@ const postReducer = (state, action) => {
       return { ...state, comments: action.payload };
     case "error":
       return { ...state, errorMessage: action.payload };
+    case "search":
+      return { ...state, searchList: action.payload };
 
     default:
       return state;
   }
 };
-
-
 
 const createPost = (dispatch) => async (explain, ResultObj, category) => {
   try {
@@ -59,8 +59,8 @@ const resetPost = (dispatch) => () => {
   dispatch({ type: "reset", payload: null });
 };
 const resetDiscover = (dispatch) => () => {
-    dispatch({ type: "refresh_Discover", payload: null });
-  };
+  dispatch({ type: "refresh_Discover", payload: null });
+};
 
 const fetchFollowedPosts = (dispatch) => async () => {
   try {
@@ -82,14 +82,14 @@ const fetchImage = (dispatch) => async () => {
 
 const fetchPostComments = (dispatch) => async (postID) => {
   try {
-    const response = await trackerApi.post("/comments",{postID});
+    const response = await trackerApi.post("/comments", { postID });
     dispatch({ type: "fetch_comments", payload: response.data.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-const PostCommenting = (dispatch) => async (postID,comment) => {
+const PostCommenting = (dispatch) => async (postID, comment) => {
   try {
     await trackerApi.post(`/comments/${postID}`, { comment });
   } catch (error) {
@@ -100,6 +100,15 @@ const PostCommenting = (dispatch) => async (postID,comment) => {
 const ratePost = (dispatch) => async (userID, postID, star) => {
   try {
     await trackerApi.post("/rating-post", { userID, postID, star });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchSearchData = (dispatch) => async (searchKey) => {
+  try {
+    const response = await trackerApi.post("/search", { searchKey });
+    dispatch({ type: "search", payload: response.data.user });
   } catch (error) {
     console.log(error);
   }
@@ -116,7 +125,8 @@ export const { Provider, Context } = createDataContext(
     resetPost,
     fetchPostComments,
     resetDiscover,
-    PostCommenting
+    PostCommenting,
+    fetchSearchData
   },
   {
     errorMessage: "",
@@ -125,5 +135,6 @@ export const { Provider, Context } = createDataContext(
     post: [],
     discover: [],
     comments: [],
+    searchList: [],
   }
 );

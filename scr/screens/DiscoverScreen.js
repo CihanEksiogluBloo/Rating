@@ -7,10 +7,9 @@ import {
   ScrollView,
   LogBox,
   RefreshControl,
-  Text
+  Text,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
 import Spacer from "../components/Spacers/Spacer";
 import { Context as PostContext } from "../context/PostContext";
 import MiniPost from "../components/postComp/MiniPost";
@@ -19,9 +18,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 import { Button } from "react-native";
 import { TouchableOpacity } from "react-native";
+import ProfileMiniCard from "../components/ProfileComps/ProfileMiniCard";
 
 const DiscoverScreen = ({ navigation }) => {
-  const { state, fetchPosts, resetDiscover, ratePost } =
+  const { state, fetchPosts, resetDiscover, ratePost, fetchSearchData } =
     useContext(PostContext);
   const [search, updateSearch] = useState("");
   const localhostUri = getLocalhostUri();
@@ -50,6 +50,20 @@ const DiscoverScreen = ({ navigation }) => {
   "star": 3,
   "userID": "",
 }
+
+state.searchList === [
+  Object {
+    "_id": "2",
+    "name": "Default",
+    "nick_name": "Test",
+    "profile_image": "",
+    "user_rating": 3,
+  },
+  {...},
+  ...
+]
+
+
 */
   useEffect(() => {
     LogBox.ignoreLogs([
@@ -59,20 +73,14 @@ const DiscoverScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaProvider >
-    
-
+    <SafeAreaProvider>
       <KeyboardAvoidingView style={styles.container}>
-      
         <ScrollView
-          
           contentContainerStyle={styles.scrollView}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
-
         >
-        
           <SpacerCustom vertical={10} />
           <Spacer>
             <SearchBar
@@ -82,12 +90,13 @@ const DiscoverScreen = ({ navigation }) => {
               containerStyle={styles.SearchBarContainer}
               inputContainerStyle={styles.SearchBarInput}
               inputStyle={{ color: "rgb(123,104,238)" }}
-              onEndEditing={() => console.log("search")}
+              onEndEditing={() => {
+                search ? fetchSearchData(search) : null;
+              }}
               onTouchEnd={() => setSearchFocus(false)}
               onClear={() => setSearchFocus(true)}
             />
           </Spacer>
-
           {searchFocus ? (
             <FlatList
               data={state.discover}
@@ -112,19 +121,41 @@ const DiscoverScreen = ({ navigation }) => {
                 );
               }}
             />
-          ) : <TouchableOpacity style={{flex:1}} onPress={()=> {
-            setSearchFocus(true) 
-            console.log("trere")}  } >
-            <View style={{borderWidth:1,flex:1,alignItems:"center"}}><Text>I'm waiting for you to finish your typing...</Text><Text>If you wanna go back,</Text><Text>Touch me!</Text></View>
-            </TouchableOpacity>
-        }
-        
-        </ScrollView>
-        
-      </KeyboardAvoidingView>
-      
+          ) : (
+            <View>
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                onPress={() => {
+                  setSearchFocus(true);
+                  console.log("geri dönme isteği");
+                }}
+              >
+                <View style={{ borderWidth: 1, flex: 1, alignItems: "center" }}>
+                  <Text>I'm waiting for you to finish your typing...</Text>
+                  <Text>If you wanna go back,</Text>
+                  <Text>Touch me!</Text>
+                </View>
+              </TouchableOpacity>
+              <FlatList
+                data={state.searchList}
+                keyExtractor={(item) => item._id}
+                renderItem={({ item }) => {
+                  return (
 
-      
+                      <ProfileMiniCard
+                        username={item.name}
+                        nick_name={item.nick_name}
+                        profile_image={item.profile_image}
+                        star={item.user_rating}
+                      />
+
+                  );
+                }}
+              />
+            </View>
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 };
@@ -151,11 +182,9 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "#fff",
-    flex:1
+    flex: 1,
   },
-  scrollView:{
-    
-  }
+  scrollView: {},
 });
 
 export default DiscoverScreen;

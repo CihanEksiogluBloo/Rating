@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Text,
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import { Image, Button, Overlay, Avatar } from "react-native-elements";
+import { Image,Overlay } from "react-native-elements";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 import Rating from "../evaluation/Rating";
 import SocialValuePoint from "../evaluation/SocialValuePoint";

@@ -1,6 +1,6 @@
 import React from "react";
-import { View, StyleSheet, ActivityIndicator,Dimensions, Animated } from "react-native";
-import { Image, Text } from "react-native-elements";
+import { View, StyleSheet, Animated } from "react-native";
+import { Text } from "react-native-elements";
 import Rating from "../evaluation/Rating";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 import SocialValuePoint from "../evaluation/SocialValuePoint";

@@ -18,6 +18,8 @@ const authReducer = (state,action) => {
             return { token: null, errorMessage: "" };
         case "fetch-myProfile" :
                 return {...state,myProfile:action.payload};
+        case "reset-userProfile":
+            return{...state,userProfile:action.payload}
         default:
             return state;
     };
@@ -115,12 +117,17 @@ const fetchProfile = dispatch => async  (nick_name) => {
     dispatch({type:dispatchType,payload:response.data});
     
 };
+const resetUserProfile = dispatch =>  () => {
+    
+    dispatch({type:"reset-userProfile",payload:[]});
+    
+};
 
 
 
 export const {Provider,Context} = createDataContext(
     authReducer,
-    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile},
+    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile,resetUserProfile},
     {token: null, errorMessage: '',myProfile:[],userProfile:[]}
 );
 

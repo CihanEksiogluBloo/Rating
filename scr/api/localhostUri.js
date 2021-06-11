@@ -1,4 +1,4 @@
 export const getLocalhostUri = () => {
-  const uri = "http://7fd3959f328b.ngrok.io";
+  const uri = "http://95b45095593d.ngrok.io";
   return uri;
 };

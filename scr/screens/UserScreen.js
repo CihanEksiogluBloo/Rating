@@ -1,16 +1,12 @@
 import React, { useContext,useEffect } from "react";
-import { View, Text, TouchableOpacity,FlatList,Button,ScrollView,LogBox,StyleSheet } from "react-native";
+import {Text,LogBox,StyleSheet } from "react-native";
 import {Context as AuthContext} from '../context/AuthContext';
-import MiniPost from '../components/postComp/MiniPost';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { getLocalhostUri } from "../api/localhostUri";
-import Profile from '../components/ProfileComps/Profile';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SpacerCustom from "../components/Spacers/SpacerCustom";
+import UserProfileCard from "../components/ProfileComps/UserProfileCard";
 
-const localhostUri = getLocalhostUri();
 const UserScreen = ({ navigation }) => {
-  const { fetchProfile, state } = useContext(AuthContext);
+  const { fetchProfile, state,resetUserProfile } = useContext(AuthContext);
   const nick_name = navigation.getParam("data");
   /*
   state.data === Object {
@@ -39,43 +35,15 @@ const UserScreen = ({ navigation }) => {
     LogBox.ignoreLogs([
       "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.",
     ]);
+    resetUserProfile();
     fetchProfile({nick_name});
   }, []);
-
-
-
   return (
     <SafeAreaProvider>
     <SpacerCustom vertical={10} />
-      
-        
-        {/*state.userProfile.data ? (
-          <ScrollView >
-          
-          <Profile data={state.userProfile.data} />
-          
-
-          <FlatList
-            data={state.userProfile.data.posts}
-            numColumns={3}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => {
-              return (
-                <View>
-                  <MiniPost
-                    localhostUri={localhostUri}
-                    imageName={item.image}
-                    profile_image={item.profile_image}
-                    nick_name={item.nick_name}
-                    star={item.star}
-                  />
-                </View>
-              );
-            }}
-          />
-          </ScrollView>
-          ) : null*/}
-          <Button title="asdas" onPress={()=> console.log(state)} />
+      {typeof (state.userProfile) === "object" ? <UserProfileCard data={state.userProfile.data} /> :null
+        }
+         
           
 
     </SafeAreaProvider>

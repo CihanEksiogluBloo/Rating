@@ -82,6 +82,14 @@ const Discover = createStackNavigator({
     }
     
   },
+  UserScrDiscover: {
+    screen:UserScreen,
+    navigationOptions:{
+      title:"User Profile"
+    }
+    
+  },
+
 },
 
 
