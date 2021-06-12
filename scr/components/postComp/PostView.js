@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { Text } from "react-native-elements";
 import Rating from "../evaluation/Rating";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 import SocialValuePoint from "../evaluation/SocialValuePoint";
 import { getLocalhostUri } from "../../api/localhostUri";
 import Comment from "../NavigateComps/Comment";
-
+import { Entypo } from "@expo/vector-icons";
 
 const localhostUri = getLocalhostUri();
 
@@ -41,7 +41,6 @@ item === Object {
         />
 */
 
-
   return (
     <View style={{ alignItems: "center", marginBottom: 5 }}>
       <View>
@@ -52,35 +51,52 @@ item === Object {
             alignContent: "space-between",
           }}
         >
-          <ProfileAvatar
-            localhostUri={localhostUri}
-            profile_image={profile_image}
-            nick_name={nick_name}
-          />
+          <View style={{ flex: 1 }}>
+            <ProfileAvatar
+              localhostUri={localhostUri}
+              profile_image={profile_image}
+              nick_name={nick_name}
+            />
+          </View>
           <View
-            style={{ flex: 1, marginHorizontal: 5, alignItems: "flex-end" }}
+            style={{
+              flex: 1,
+              alignItems: "center",
+            }}
           >
             <SocialValuePoint star={star} />
           </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "flex-end",
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center", flex: 1 }}
+            >
+              <TouchableOpacity>
+                <Entypo
+                  name="dots-three-vertical"
+                  size={20}
+                  style={{ color: "black" }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
-
-        
         <Animated.Image
-      source={{
-        uri: `${localhostUri}/posts/${image}`
-      }}
-      style={{
-        width: 360,
-        height: 480,
-        transform: [{ scale: 1 }]
-      }}
-      resizeMode='contain'
-    />
-
-
-
-
+          source={{
+            uri: `${localhostUri}/posts/${image}`,
+          }}
+          style={{
+            width: 360,
+            height: 480,
+            transform: [{ scale: 1 }],
+          }}
+          resizeMode="contain"
+        />
 
         <View style={{ margin: 2 }}>
           <Text
@@ -91,7 +107,9 @@ item === Object {
               margin: 1,
             }}
           >
-            <Text style={{ fontWeight: "bold",color:"#867ae9" }}>{nick_name}: </Text>
+            <Text style={{ fontWeight: "bold", color: "#867ae9" }}>
+              {nick_name}:{" "}
+            </Text>
             {explain}
           </Text>
           <View

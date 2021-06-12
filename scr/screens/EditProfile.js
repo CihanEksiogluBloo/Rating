@@ -41,7 +41,7 @@ const EditProfile = ({ navigation }) => {
         <Input
           label="About"
           value={about}
-          onChangeText={(newAbout) => setAbout(about)}
+          onChangeText={(newAbout) => setAbout(newAbout)}
           autoCapitalize="none"
           autoCorrect={false}
         />

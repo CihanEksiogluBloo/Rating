@@ -61,7 +61,8 @@ const updateProfileImage = (dispatch) => async (ResultObj) => {
 
 const updateInfoUser = (dispatch) => async (name,about) => {
     try {
-      const response = await trackerApi.post("/profileInfoUpdate", { name,about });
+      await trackerApi.post("/profileInfoUpdate", { name,about });
+      navigate("Account");
     } catch (error) {
       console.log(error);
       dispatch({

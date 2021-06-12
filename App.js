@@ -22,6 +22,7 @@ import CommentsScreen from "./scr/screens/CommentsScreen";
 
 import { Provider as AuthProvider } from "./scr/context/AuthContext";
 import { Provider as PostProvider } from "./scr/context/PostContext";
+import { Provider as ProfileProvider } from "./scr/context/ProfileContext";
 
 import { setNavigator } from "./scr/navigationRef";
 
@@ -30,12 +31,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EditProfile from "./scr/screens/EditProfile";
 
-
 const HomeList = createStackNavigator({
-  HomeSrc: {screen:HomeScreen,navigationOptions:{
-    title:"Rating",
-    headerTitleStyle:{fontWeight: "bold", fontStyle:"italic"}
-  }},
+  HomeSrc: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: "Rating",
+      headerTitleStyle: { fontWeight: "bold", fontStyle: "italic" },
+    },
+  },
   Share: ShareScreen,
   CommentsSrc: CommentsScreen,
   UserSrc: UserScreen,
@@ -70,35 +73,28 @@ Account.navigationOptions = ({ navigation }) => {
 
 const Discover = createStackNavigator({
   Discover: {
-    screen:DiscoverScreen,
-    navigationOptions:{
-      headerShown:false
-    }
+    screen: DiscoverScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   PostDetailDiscover: {
-    screen:PostDetailScreen,
-    navigationOptions:{
-      title:"Post"
-    }
-    
+    screen: PostDetailScreen,
+    navigationOptions: {
+      title: "Post",
+    },
   },
   UserScrDiscover: {
-    screen:UserScreen,
-    navigationOptions:{
-      title:"User Profile"
-    }
-    
+    screen: UserScreen,
+    navigationOptions: {
+      title: "User Profile",
+    },
   },
-
-},
-
-
-);
+});
 
 Discover.navigationOptions = ({ navigation }) => {
   return {
     tabBarIcon: <MaterialIcons name="emoji-people" size={20} color="black" />,
-
   };
 };
 
@@ -114,7 +110,6 @@ const switchNavigator = createSwitchNavigator(
       Discover: Discover,
       Account: Account,
     }),
-    
   },
   {}
 );
@@ -124,13 +119,15 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <PostProvider>
-        <App
-          ref={(navigator) => {
-            setNavigator(navigator);
-          }}
-        />
-      </PostProvider>
+      <ProfileProvider>
+        <PostProvider>
+          <App
+            ref={(navigator) => {
+              setNavigator(navigator);
+            }}
+          />
+        </PostProvider>
+      </ProfileProvider>
     </AuthProvider>
   );
 };

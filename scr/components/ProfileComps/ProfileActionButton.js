@@ -2,20 +2,31 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, ListItem, BottomSheet } from "react-native-elements";
 
-const ProfileActionButton = () => {
+const ProfileActionButton = ({
+  followReq,
+  unfollowReq,
+  userID,
+  isFollowing,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
-
-  const [followed, setFollowed] = useState(false);
+  const [followed, setFollowed] = useState(isFollowing);
+  
 
   const list = [
     {
       title: "UnFollow",
       onPress: () => {
+        unfollowReq(userID);
         setFollowed(false);
         setIsVisible(false);
       },
     },
-    { title: "Report" },
+    {
+      title: "Report",
+      onPress: () => {
+        setWhichlist(list2)
+      },
+    },
     {
       title: "Cancel",
       containerStyle: { backgroundColor: "red" },
@@ -24,13 +35,34 @@ const ProfileActionButton = () => {
     },
   ];
 
+  const list2 = [
+    {
+      title: "Report",
+      onPress: () => {
+        setIsVisible(false);
+        setWhichlist(list)
+      },
+    },
+    {
+      title: "Cancel",
+      containerStyle: { backgroundColor: "red" },
+      titleStyle: { color: "white" },
+      onPress: () => {setIsVisible(false);setWhichlist(list); },
+    },
+  ];
+  const [whichlist, setWhichlist] = useState(list);
   return (
-    <View>
+    <View style={{
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      marginVertical: 20,
+    }}>
       {followed === false ? (
         <Button
           title={"Follow"}
           onPress={() => {
             setFollowed(true);
+            followReq(userID);
           }}
           containerStyle={{ minWidth: 150 }}
         />
@@ -43,12 +75,20 @@ const ProfileActionButton = () => {
           containerStyle={{ minWidth: 150 }}
         />
       )}
+      <Button
+          title={"Report"}
+          onPress={() => {
+            setWhichlist(list2)
+            setIsVisible(true);
+          }}
+          containerStyle={{ minWidth: 150 }}
+        />
 
       <BottomSheet
         isVisible={isVisible}
         containerStyle={{ backgroundColor: "rgba(0.5, 0.25, 0, 0.4)" }}
       >
-        {list.map((l, i) => (
+        {whichlist.map((l, i) => (
           <ListItem
             key={i}
             containerStyle={l.containerStyle}

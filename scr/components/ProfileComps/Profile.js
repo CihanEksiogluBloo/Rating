@@ -20,6 +20,17 @@ import { withNavigation } from "react-navigation";
     } ...,
   ],
   "socialValue": 3,
+  "followers": 1,
+  "following": 1,
+  "isFollowing": false,
+  "myProfile": true,
+  "postCounter": 15,
+  "posts": Array [
+    Object {
+      "_id": "6098dd6e5fd2c73ab019f6a5",
+      "explain": "hggffdsds",
+      "image": "default.jpg",
+      "star": 3,
   "user": Array [
     Object {
       "about": "",
@@ -33,7 +44,7 @@ import { withNavigation } from "react-navigation";
   */
 
 const localhostUri = getLocalhostUri();
-const Profile = ({ data,navigation }) => {
+const Profile = ({ data, navigation, followReq, unfollowReq }) => {
   let color = "blue";
   let rate = "normal";
 
@@ -147,24 +158,18 @@ const Profile = ({ data,navigation }) => {
                   title="Edit"
                   containerStyle={{ width: 250, borderRadius: 10 }}
                   onPress={() =>
-                    navigation.navigate("EditSrc", {"data":data.user})
+                    navigation.navigate("EditSrc", { data: data.user })
                   }
                 />
               </View>
             ) : (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  marginVertical: 20,
-                }}
-              >
-                <ProfileActionButton />
-                <Button
-                  title="Report"
-                  containerStyle={{ width: 160, borderRadius: 10 }}
+                <ProfileActionButton
+                  userID={data.user._id}
+                  followReq={followReq}
+                  unfollowReq={unfollowReq}
+                  isFollowing={data.isFollowing}
                 />
-              </View>
+
             )}
           </SpacerCustom>
         </View>

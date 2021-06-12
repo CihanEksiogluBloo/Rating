@@ -21,10 +21,12 @@ const SigninScreen = () => {
         onSubmit={signin}
         submitButtonText="Sign In" 
         />
+        <View style={{alignItems:"center"}}>
         <NavLink 
         text= "Dont have an account?  Sign up instead"
         routeName="Signup"
         />
+        </View>
     </View>
     );
     
