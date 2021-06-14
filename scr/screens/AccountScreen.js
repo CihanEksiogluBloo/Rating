@@ -5,6 +5,9 @@ import {
   ScrollView,
   View,
   FlatList,
+  KeyboardAvoidingView,
+  RefreshControl,
+  ActivityIndicator
 } from "react-native";
 import { Button } from "react-native-elements";
 import Spacer from "../components/Spacers/Spacer";
@@ -19,7 +22,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 
 const AccountScreen = ({ navigation }) => {
-  const { fetchProfile, state } = useContext(AuthContext);
+  const { fetchProfile, state,resetmyProfile } = useContext(AuthContext);
   const {ratePost} = useContext(PostContext);
   const [veri, setVeri] = useState({});
 
@@ -48,14 +51,36 @@ const AccountScreen = ({ navigation }) => {
 
   */
 
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+const [refreshing, setRefreshing] = useState(false);
+
+const onRefresh = React.useCallback(() => {
+  setRefreshing(true);
+  resetmyProfile();
+  fetchProfile({ nick_name: "myProfile" });
+  wait(2000).then(() => setRefreshing(false));
+}, []);
+
   useEffect(() => {
     fetchProfile({ nick_name: "myProfile" });
   }, []);
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+        style={styles.keyboardAvoidingViewContainer}
+        behavior="height"
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
       <SpacerCustom vertical={10}>
-        {state.myProfile ? (
+        {state.myProfile && refreshing == false ? (
           <ScrollView>
             <Profile data={state.myProfile.data} />
             <FlatList
@@ -81,8 +106,10 @@ const AccountScreen = ({ navigation }) => {
               }}
             />
           </ScrollView>
-        ) : null}
+        ) : <ActivityIndicator size="large" />}
       </SpacerCustom>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   );
 };

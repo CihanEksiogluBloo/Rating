@@ -130,8 +130,6 @@ export const { Provider, Context } = createDataContext(
   },
   {
     errorMessage: "",
-    defaultImage: "",
-    defaultPP: "",
     post: [],
     discover: [],
     comments: [],

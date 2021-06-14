@@ -1,29 +1,57 @@
 import React, { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
-import SocialValuePoint from "../evaluation/SocialValuePoint";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 
-const CommentsOnPost = ({ profile_image, nick_name,star,comment }) => {
+const CommentsOnPost = ({ profile_image, nick_name, comment,navigation }) => {
   return (
-    <View style={{borderColor: "rgba(125, 125, 125, 0.2)",borderTopWidth: 1, padding:5,marginVertical:5}}>
+    <View
+      style={{
+        borderColor: "rgba(125, 125, 125, 0.2)",
+        borderTopWidth: 1,
+        padding: 5,
+        marginVertical: 5,
+        backgroundColor: "gray",
+        borderRadius: 15,
+      }}
+    >
       <View
-        style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between" }}>
-
-        <ProfileAvatar profile_image={profile_image} nick_name={nick_name} />
-        <SocialValuePoint star={star || 2} />
-        
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          backgroundColor: "white",
+          borderRadius: 15,
+        }}
+      >
+        {nick_name === "Me" ? (
+          <TouchableOpacity onPress={()=>navigation.navigate("Account")}>
+            <Text style={{color:"royalblue",padding:5,fontSize:15,fontWeight:"bold",}}>{nick_name}</Text>
+          </TouchableOpacity>
+        ) : (
+          <ProfileAvatar profile_image={profile_image} nick_name={nick_name} />
+        )
+      }
       </View>
-      <View >
-      <Text style={{maxHeight:153,}}>
-            {comment}
-        </Text>
+      <View
+        style={{
+          backgroundColor: "white",
+          borderRadius: 15,
+          marginVertical: 5,
+        }}
+      >
+        <Text style={styles.textStyle}>{comment}</Text>
       </View>
-      
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  textStyle: {
+    maxHeight: 153,
+    paddingLeft: 10,
+  },
+});
 
 export default CommentsOnPost;

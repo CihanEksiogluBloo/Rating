@@ -20,7 +20,9 @@ const authReducer = (state,action) => {
         case "fetch-myProfile" :
                 return {...state,myProfile:action.payload};
         case "reset-userProfile":
-            return{...state,userProfile:action.payload}
+            return{...state,userProfile:action.payload};
+        case "reset-myProfile":
+             return{...state,myProfile:action.payload}
         default:
             return state;
     };
@@ -155,12 +157,17 @@ const resetUserProfile = dispatch =>  () => {
     dispatch({type:"reset-userProfile",payload:[]});
     
 };
+const resetmyProfile = dispatch =>  () => {
+    
+    dispatch({type:"reset-myProfile",payload:[]});
+    
+};
 
 
 
 export const {Provider,Context} = createDataContext(
     authReducer,
-    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile,resetUserProfile,updateProfileImage,updateInfoUser},
+    {signup,signout,signin,clearErrorMessage,tryLocalSignin,fetchProfile,resetUserProfile,updateProfileImage,updateInfoUser,resetmyProfile},
     {token: null, errorMessage: '',myProfile:[],userProfile:[]}
 );
 

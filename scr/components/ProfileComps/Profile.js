@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, BottomSheet, ListItem } from "react-native";
-import { Text, Avatar, Button } from "react-native-elements";
+import { View, StyleSheet, BottomSheet, ListItem, } from "react-native";
+import { Text, Avatar, Button,Tooltip } from "react-native-elements";
 import { getLocalhostUri } from "../../api/localhostUri";
 import SocialValuePoint from "../evaluation/SocialValuePoint";
 import MiniPost from "../postComp/MiniPost";
@@ -8,6 +8,7 @@ import Spacer from "../Spacers/Spacer";
 import SpacerCustom from "../Spacers/SpacerCustom";
 import ProfileActionButton from "./ProfileActionButton";
 import { withNavigation } from "react-navigation";
+import { AntDesign } from '@expo/vector-icons';
 /*
   state.data === Object {
   "posts": Array [
@@ -49,13 +50,13 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
   let rate = "normal";
 
   data
-    ? data.socialValue > 2 && data.socialValue < 3
+    ? data.socialValue > 2 && data.socialValue <= 3
       ? ((color = "gold"), (rate = "Not Bad"))
-      : data.socialValue > 3 && data.socialValue < 4
+      : data.socialValue > 3 && data.socialValue <= 4
       ? ((color = "green"), (rate = "Good!"))
-      : data.socialValue > 4 && data.socialValue < 5
+      : data.socialValue > 4 && data.socialValue <= 5
       ? ((color = "purple"), (rate = "Great"))
-      : data.socialValue > 1 && data.socialValue < 2
+      : data.socialValue > 1 && data.socialValue <= 2
       ? ((color = "red"), (rate = "Bad!?!"))
       : null
     : null;
@@ -84,7 +85,20 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                   }}
                 />
                 <View style={{ marginHorizontal: 10 }}>
+                <View style={{flexDirection:"row",alignItems:"center"}}>
+                
                   <Text h4>{data.user.name}</Text>
+                  <SpacerCustom horizontal={5}>
+                  {
+                    data.user.officialAccount == 1 
+                  ? <Tooltip popover={<Text>Official Account</Text>}><AntDesign name="checkcircle" size={24} color="blue" /></Tooltip>
+                  : data.user.officialAccount == 2 
+                  ? <Tooltip popover={<Text>Rating App Owner</Text>}><AntDesign name="checkcircle" size={24} color="#99154e" /></Tooltip>
+                  : null
+                  
+                 }
+                  </SpacerCustom>
+                </View>
                   <Text
                     style={{
                       color: "rgba(125, 125, 125, 0.7)",

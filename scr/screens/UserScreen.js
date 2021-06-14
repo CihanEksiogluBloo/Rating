@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Text, LogBox, StyleSheet } from "react-native";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ProfileContext } from "../context/ProfileContext";
+import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 import UserProfileCard from "../components/ProfileComps/UserProfileCard";
@@ -9,6 +10,7 @@ import UserProfileCard from "../components/ProfileComps/UserProfileCard";
 const UserScreen = ({ navigation }) => {
   const { fetchProfile, state, resetUserProfile } = useContext(AuthContext);
   const { followReq, unfollowReq } = useContext(ProfileContext);
+  const { ratePost } = useContext(PostContext);
   const nick_name = navigation.getParam("data");
   /*
   state.data === Object {
@@ -44,7 +46,7 @@ const UserScreen = ({ navigation }) => {
     <SafeAreaProvider>
       <SpacerCustom vertical={10} />
       {typeof state.userProfile === "object" ? (
-        <UserProfileCard data={state.userProfile.data} follow={followReq} unfollow={unfollowReq} />
+        <UserProfileCard ratePost={ratePost} data={state.userProfile.data} follow={followReq} unfollow={unfollowReq} />
       ) : null}
     </SafeAreaProvider>
   );

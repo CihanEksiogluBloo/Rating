@@ -28,9 +28,9 @@ const ProfileMiniCard = ({ username, nick_name, profile_image, star,navigation }
             <Text style={styles.name}>{username}</Text>
           </View>
         </View>
-        <View>
+        {/*<View>
           <SocialValuePoint star={star} />
-        </View>
+        </View>*/}
       </View>
     </TouchableOpacity>
     </SpacerCustom>

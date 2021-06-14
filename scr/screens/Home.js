@@ -73,6 +73,7 @@ const HomeScreen = () => {
                       postID={item._id}
                       userID={item.userID}
                       ratePost={ratePost}
+                      showCommentsButton={true}
                     />
                   </View>
                 );

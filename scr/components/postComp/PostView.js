@@ -19,6 +19,7 @@ const PostView = ({
   postID,
   userID,
   ratePost,
+  showCommentsButton,
 }) => {
   /* item example
 item === Object {
@@ -58,23 +59,14 @@ item === Object {
               nick_name={nick_name}
             />
           </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-            }}
-          >
-            <SocialValuePoint star={star} />
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "flex-end",
-            }}
-          >
+
+
             <View
-              style={{ flexDirection: "row", alignItems: "center", flex: 1 }}
+              style={{ flexDirection: "row", alignItems: "center", flex: 1}}
             >
+            <View style={{flex:1,alignItems:"flex-end" }}>
+              <SocialValuePoint star={star} />
+            </View>
               <TouchableOpacity>
                 <Entypo
                   name="dots-three-vertical"
@@ -82,7 +74,7 @@ item === Object {
                   style={{ color: "black" }}
                 />
               </TouchableOpacity>
-            </View>
+
           </View>
         </View>
 
@@ -112,27 +104,37 @@ item === Object {
             </Text>
             {explain}
           </Text>
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Rating userID={userID} postID={postID} ratePost={ratePost} />
 
+          {showCommentsButton ? (
             <View
               style={{
-                justifyContent: "flex-end",
-                flex: 1,
+                justifyContent: "space-between",
                 flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <View>
-                <Comment routeName="CommentsSrc" data={postID} />
+              <Rating userID={userID} postID={postID} ratePost={ratePost} />
+
+              <View
+                style={{
+                  justifyContent: "flex-end",
+                  flex: 1,
+                  flexDirection: "row",
+                }}
+              >
+                <View>
+                  <Comment routeName={"CommentsSrc"} data={postID} />
+                </View>
               </View>
             </View>
-          </View>
+          ) : (
+            <Rating
+              size={35}
+              userID={userID}
+              postID={postID}
+              ratePost={ratePost}
+            />
+          )}
         </View>
       </View>
     </View>

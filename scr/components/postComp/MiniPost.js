@@ -44,7 +44,6 @@ const MiniPost = ({
               profile_image,
               nick_name,
               star,
-              navigation,
               screen,
               userID,
               postID,

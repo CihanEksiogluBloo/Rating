@@ -42,6 +42,12 @@ const HomeList = createStackNavigator({
   Share: ShareScreen,
   CommentsSrc: CommentsScreen,
   UserSrc: UserScreen,
+  PostDetailHome: {
+    screen: PostDetailScreen,
+    navigationOptions: {
+      title: "Post Details",
+    },
+  },
 });
 
 HomeList.navigationOptions = {
@@ -53,6 +59,7 @@ const Account = createStackNavigator({
   Settings: SettingsScreen,
   PostDetail: PostDetailScreen,
   EditSrc: EditProfile,
+  AccountComments: CommentsScreen,
 });
 
 Account.navigationOptions = ({ navigation }) => {
@@ -89,6 +96,7 @@ const Discover = createStackNavigator({
     navigationOptions: {
       title: "User Profile",
     },
+  DiscoverComments: CommentsScreen,
   },
 });
 

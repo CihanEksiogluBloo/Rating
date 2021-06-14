@@ -13,7 +13,7 @@ const createFormData = (ResultObj,others) => {
       data.append(key, others[key]);
     })
   
-  : console.log("no others")}
+  : null}
 
   
 

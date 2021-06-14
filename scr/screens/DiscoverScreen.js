@@ -13,10 +13,8 @@ import { SearchBar } from "react-native-elements";
 import Spacer from "../components/Spacers/Spacer";
 import { Context as PostContext } from "../context/PostContext";
 import MiniPost from "../components/postComp/MiniPost";
-import { getLocalhostUri } from "../api/localhostUri";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
-import { Button } from "react-native";
 import { TouchableOpacity } from "react-native";
 import ProfileMiniCard from "../components/ProfileComps/ProfileMiniCard";
 
@@ -24,7 +22,6 @@ const DiscoverScreen = ({ navigation }) => {
   const { state, fetchPosts, resetDiscover, ratePost, fetchSearchData } =
     useContext(PostContext);
   const [search, updateSearch] = useState("");
-  const localhostUri = getLocalhostUri();
   const [refreshing, setRefreshing] = useState(false);
   const [searchFocus, setSearchFocus] = useState(true);
 
@@ -106,7 +103,6 @@ state.searchList === [
                 return (
                   <View style={{ flexDirection: "row" }}>
                     <MiniPost
-                      localhostUri={localhostUri}
                       imageName={item.image}
                       profile_image={item.profile_image}
                       nick_name={item.nick_name}
@@ -116,6 +112,7 @@ state.searchList === [
                       postID={item._id}
                       ratePost={ratePost}
                       explain={item.explain}
+                      fullList={state.discover}
                     />
                   </View>
                 );
@@ -127,7 +124,6 @@ state.searchList === [
                 style={{ flex: 1 }}
                 onPress={() => {
                   setSearchFocus(true);
-                  console.log("geri dönme isteği");
                 }}
               >
                 <View style={{ borderWidth: 1, flex: 1, alignItems: "center" }}>
@@ -141,14 +137,12 @@ state.searchList === [
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => {
                   return (
-
-                      <ProfileMiniCard
-                        username={item.name}
-                        nick_name={item.nick_name}
-                        profile_image={item.profile_image}
-                        star={item.user_rating}
-                      />
-
+                    <ProfileMiniCard
+                      username={item.name}
+                      nick_name={item.nick_name}
+                      profile_image={item.profile_image}
+                      star={item.user_rating}
+                    />
                   );
                 }}
               />
