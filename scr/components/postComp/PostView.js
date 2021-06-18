@@ -20,7 +20,11 @@ const PostView = ({
   userID,
   ratePost,
   showCommentsButton,
+  points,
 }) => {
+
+  let lastRateORDefaultValue = 3;
+  typeof points !== 'undefined' ? lastRateORDefaultValue = points[0] ? points[0].star : 3 : null
   /* item example
 item === Object {
   "__v": 0,
@@ -41,7 +45,6 @@ item === Object {
           PlaceholderContent={<ActivityIndicator />}
         />
 */
-
   return (
     <View style={{ alignItems: "center", marginBottom: 5 }}>
       <View>
@@ -53,28 +56,26 @@ item === Object {
           }}
         >
           <View style={{ flex: 1 }}>
+          
             <ProfileAvatar
               localhostUri={localhostUri}
               profile_image={profile_image}
               nick_name={nick_name}
+              userID={userID}
             />
           </View>
 
-
-            <View
-              style={{ flexDirection: "row", alignItems: "center", flex: 1}}
-            >
-            <View style={{flex:1,alignItems:"flex-end" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+            <View style={{ flex: 1, alignItems: "flex-end" }}>
               <SocialValuePoint star={star} />
             </View>
-              <TouchableOpacity>
-                <Entypo
-                  name="dots-three-vertical"
-                  size={20}
-                  style={{ color: "black" }}
-                />
-              </TouchableOpacity>
-
+            <TouchableOpacity>
+              <Entypo
+                name="dots-three-vertical"
+                size={20}
+                style={{ color: "black" }}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -113,7 +114,12 @@ item === Object {
                 alignItems: "center",
               }}
             >
-              <Rating userID={userID} postID={postID} ratePost={ratePost} />
+              <Rating
+                userID={userID}
+                postID={postID}
+                ratePost={ratePost}
+                value={lastRateORDefaultValue}
+              />
 
               <View
                 style={{

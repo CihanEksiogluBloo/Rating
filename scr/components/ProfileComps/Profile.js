@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, BottomSheet, ListItem, } from "react-native";
-import { Text, Avatar, Button,Tooltip } from "react-native-elements";
+import { View, StyleSheet, BottomSheet, ListItem } from "react-native";
+import { Text, Avatar, Button, Tooltip } from "react-native-elements";
 import { getLocalhostUri } from "../../api/localhostUri";
 import SocialValuePoint from "../evaluation/SocialValuePoint";
 import MiniPost from "../postComp/MiniPost";
@@ -8,7 +8,7 @@ import Spacer from "../Spacers/Spacer";
 import SpacerCustom from "../Spacers/SpacerCustom";
 import ProfileActionButton from "./ProfileActionButton";
 import { withNavigation } from "react-navigation";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 /*
   state.data === Object {
   "posts": Array [
@@ -85,20 +85,28 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                   }}
                 />
                 <View style={{ marginHorizontal: 10 }}>
-                <View style={{flexDirection:"row",alignItems:"center"}}>
-                
-                  <Text h4>{data.user.name}</Text>
-                  <SpacerCustom horizontal={5}>
-                  {
-                    data.user.officialAccount == 1 
-                  ? <Tooltip popover={<Text>Official Account</Text>}><AntDesign name="checkcircle" size={24} color="blue" /></Tooltip>
-                  : data.user.officialAccount == 2 
-                  ? <Tooltip popover={<Text>Rating App Owner</Text>}><AntDesign name="checkcircle" size={24} color="#99154e" /></Tooltip>
-                  : null
-                  
-                 }
-                  </SpacerCustom>
-                </View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text h4>{data.user.name}</Text>
+                    <SpacerCustom horizontal={5}>
+                      {data.user.officialAccount == 1 ? (
+                        <Tooltip popover={<Text>Official Account</Text>}>
+                          <AntDesign
+                            name="checkcircle"
+                            size={24}
+                            color="blue"
+                          />
+                        </Tooltip>
+                      ) : data.user.officialAccount == 2 ? (
+                        <Tooltip popover={<Text>Rating App Owner</Text>}>
+                          <AntDesign
+                            name="checkcircle"
+                            size={24}
+                            color="#99154e"
+                          />
+                        </Tooltip>
+                      ) : null}
+                    </SpacerCustom>
+                  </View>
                   <Text
                     style={{
                       color: "rgba(125, 125, 125, 0.7)",
@@ -114,48 +122,21 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
           </View>
 
           <SpacerCustom horizontal={20} top={20} bot={0}>
-            <View
-              style={{
-                borderColor: "rgba(125, 125, 125, 0.5)",
-                borderBottomWidth: 1,
-                borderTopWidth: 1,
-                paddingVertical: 10,
-              }}
-            >
+            <View>
               <View
                 style={{
-                  alignItems: "center",
                   borderBottomWidth: 1,
                   borderColor: "rgba(125, 125, 125, 0.5)",
                   marginBottom: 5,
-                }}
-              >
-                <Text style={{ color: color }} h2>
-                  {rate}
-                </Text>
-                <Text h3>{data.socialValue}</Text>
-                <Text style={styles.followStrings}>Social Value</Text>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
+                  justifyContent: "center",
                 }}
               >
                 <View style={styles.followStrings}>
-                  <Text style={styles.followNumberText}>
-                    {data.postCounter}
+                  <Text style={{ color: color }} h2>
+                    {rate}
                   </Text>
-                  <Text>Posts</Text>
-                </View>
-                <View style={styles.followStrings}>
-                  <Text style={styles.followNumberText}>{data.followers}</Text>
-                  <Text>Followers</Text>
-                </View>
-                <View style={styles.followStrings}>
-                  <Text style={styles.followNumberText}>{data.following}</Text>
-                  <Text>Following</Text>
+                  <Text h3>{data.socialValue}</Text>
+                  <Text style={styles.followStrings}>Social Value</Text>
                 </View>
               </View>
             </View>
@@ -177,15 +158,40 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                 />
               </View>
             ) : (
-                <ProfileActionButton
-                  userID={data.user._id}
-                  followReq={followReq}
-                  unfollowReq={unfollowReq}
-                  isFollowing={data.isFollowing}
-                />
-
+              <ProfileActionButton
+                userID={data.user._id}
+                followReq={followReq}
+                unfollowReq={unfollowReq}
+                isFollowing={data.isFollowing}
+              />
             )}
           </SpacerCustom>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              borderColor: "rgba(125, 125, 125, 0.5)",
+              borderTopWidth: 1,
+              marginHorizontal:20,
+              padding:5,
+              marginVertical:5
+
+            }}
+          >
+            <View style={styles.followStrings}>
+              <Text style={styles.followNumberText}>{data.postCounter}</Text>
+              <Text>Posts</Text>
+            </View>
+            <View style={styles.followStrings}>
+              <Text style={styles.followNumberText}>{data.followers}</Text>
+              <Text>Followers</Text>
+            </View>
+            <View style={styles.followStrings}>
+              <Text style={styles.followNumberText}>{data.following}</Text>
+              <Text>Following</Text>
+            </View>
+          </View>
         </View>
       ) : null}
     </View>

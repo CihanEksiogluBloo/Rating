@@ -30,6 +30,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EditProfile from "./scr/screens/EditProfile";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeList = createStackNavigator({
   HomeSrc: {
@@ -41,7 +42,13 @@ const HomeList = createStackNavigator({
   },
   Share: ShareScreen,
   CommentsSrc: CommentsScreen,
-  UserSrc: UserScreen,
+  UserSrc:
+  {
+    screen: UserScreen,
+    navigationOptions: {
+    title: "User",
+    },
+  }, 
   PostDetailHome: {
     screen: PostDetailScreen,
     navigationOptions: {
@@ -96,7 +103,7 @@ const Discover = createStackNavigator({
     navigationOptions: {
       title: "User Profile",
     },
-  DiscoverComments: CommentsScreen,
+    DiscoverComments: CommentsScreen,
   },
 });
 

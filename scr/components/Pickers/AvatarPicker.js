@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text, Avatar,Button } from "react-native-elements";
+import { Text, Avatar, Button } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import Spacer from "../Spacers/Spacer";
 import { TouchableOpacity } from "react-native";
 
-const AvatarPicker = ({ avatarUri,submit }) => {
+const AvatarPicker = ({ avatarUri, submit }) => {
   const [image, setImage] = useState(null);
   const [ResultObj, setResultObj] = useState({});
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -36,22 +37,59 @@ const AvatarPicker = ({ avatarUri,submit }) => {
   };
   return (
     <View>
-      {image ? (<View style={{alignItems:"center"}}>
-        <Avatar
-          rounded
-          source={{
-            uri: image,
-          }}
-          size="xlarge"
-          onPress={() => pickImage()}
-          activeOpacity={0.7}
-        /> 
-        <Spacer/>
-        <TouchableOpacity onPress={()=> submit(ResultObj)}>
-          <Text style={{backgroundColor:"#325288",padding:10,fontSize:15,borderRadius:20,fontWeight:"bold",color:"white"}}>Update Profile Image</Text>
-        </TouchableOpacity>
+      {image && !uploading ? (
+        <View style={{ alignItems: "center" }}>
+          <Avatar
+            rounded
+            source={{
+              uri: image,
+            }}
+            size="xlarge"
+            onPress={() => pickImage()}
+            activeOpacity={0.7}
+          />
+          <Spacer />
+
+          <TouchableOpacity onPress={() => {submit(ResultObj),setUploading(true)}}>
+            <Text
+              style={{
+                backgroundColor: "#325288",
+                padding: 10,
+                fontSize: 15,
+                borderRadius: 20,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Update Profile Image
+            </Text>
+          </TouchableOpacity>
         </View>
-        
+      ) : image && uploading ? (
+        <View style={{ alignItems: "center" }}>
+          <Avatar
+            rounded
+            source={{
+              uri: image,
+            }}
+            size="xlarge"
+            onPress={() => pickImage()}
+            activeOpacity={0.7}
+          />
+          <Spacer />
+            <Text
+              style={{
+                backgroundColor: "#325288",
+                padding: 10,
+                fontSize: 15,
+                borderRadius: 20,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Uploading
+            </Text>
+        </View>
       ) : (
         <Avatar
           rounded
@@ -59,7 +97,7 @@ const AvatarPicker = ({ avatarUri,submit }) => {
             uri: avatarUri,
           }}
           size="xlarge"
-          onPress={() => pickImage()}
+          onPress={() => {pickImage()}}
           activeOpacity={0.7}
         />
       )}

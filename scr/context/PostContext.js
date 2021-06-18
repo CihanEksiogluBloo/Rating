@@ -113,6 +113,15 @@ const fetchSearchData = (dispatch) => async (searchKey) => {
     console.log(error);
   }
 };
+const deletePost = (dispatch) => async (postID) => {
+  try {
+    await trackerApi.post("/postDelete", { postID });
+    navigate("Account");
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const { Provider, Context } = createDataContext(
   postReducer,
@@ -126,7 +135,8 @@ export const { Provider, Context } = createDataContext(
     fetchPostComments,
     resetDiscover,
     PostCommenting,
-    fetchSearchData
+    fetchSearchData,
+    deletePost
   },
   {
     errorMessage: "",

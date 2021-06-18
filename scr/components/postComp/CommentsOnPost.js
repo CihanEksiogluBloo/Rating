@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 
-const CommentsOnPost = ({ profile_image, nick_name, comment,navigation }) => {
+const CommentsOnPost = ({ profile_image, nick_name, comment,navigation,userID }) => {
   return (
     <View
       style={{
@@ -12,7 +12,7 @@ const CommentsOnPost = ({ profile_image, nick_name, comment,navigation }) => {
         borderTopWidth: 1,
         padding: 5,
         marginVertical: 5,
-        backgroundColor: "gray",
+        backgroundColor: "#a7bbc7",
         borderRadius: 15,
       }}
     >
@@ -21,7 +21,7 @@ const CommentsOnPost = ({ profile_image, nick_name, comment,navigation }) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: "white",
+          backgroundColor: "#eeeded",
           borderRadius: 15,
         }}
       >
@@ -30,15 +30,17 @@ const CommentsOnPost = ({ profile_image, nick_name, comment,navigation }) => {
             <Text style={{color:"royalblue",padding:5,fontSize:15,fontWeight:"bold",}}>{nick_name}</Text>
           </TouchableOpacity>
         ) : (
-          <ProfileAvatar profile_image={profile_image} nick_name={nick_name} />
+          <ProfileAvatar profile_image={profile_image} nick_name={nick_name} userID={userID} />
         )
       }
       </View>
       <View
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#eeeded",
           borderRadius: 15,
           marginVertical: 5,
+          padding:5
+          
         }}
       >
         <Text style={styles.textStyle}>{comment}</Text>

@@ -4,16 +4,17 @@ import { Input, Text } from "react-native-elements";
 import AvatarPicker from "../components/Pickers/AvatarPicker";
 import Spacer from "../components/Spacers/Spacer";
 import { getLocalhostUri } from "../api/localhostUri";
-import {Context as AuthContext} from '../context/AuthContext';
+import {Context as ProfileContext} from '../context/ProfileContext';
 
 const localhostUri = getLocalhostUri();
 
 const EditProfile = ({ navigation }) => {
   const {updateProfileImage,updateInfoUser} =
-  useContext(AuthContext);
+  useContext(ProfileContext);
   const datas = navigation.getParam("data");
   const [about, setAbout] = useState(datas.about);
   const [name, setName] = useState(datas.name);
+  const [uploading,setUploading] = useState(false);
   /*datas === {
   "_id": "2",
   "about": "Test strings here",
@@ -53,20 +54,33 @@ const EditProfile = ({ navigation }) => {
           autoCorrect={false}
         />
 
-        <TouchableOpacity onPress={() => updateInfoUser(name,about) }>
-          <Text
-            style={{
-              backgroundColor: "#325288",
-              padding: 10,
-              fontSize: 15,
-              borderRadius: 20,
-              fontWeight: "bold",
-              color:"white"
-            }}
-          >
-            Save Informations
-          </Text>
-        </TouchableOpacity>
+        {!uploading ?<TouchableOpacity onPress={() => {setUploading(true),updateInfoUser(name,about)} }>
+        <Text
+          style={{
+            backgroundColor: "#325288",
+            padding: 10,
+            fontSize: 15,
+            borderRadius: 20,
+            fontWeight: "bold",
+            color:"white"
+          }}
+        >
+          Save Informations
+        </Text>
+      </TouchableOpacity> : 
+      <Text
+      style={{
+        backgroundColor: "#325288",
+        padding: 10,
+        fontSize: 15,
+        borderRadius: 20,
+        fontWeight: "bold",
+        color:"white"
+      }}
+    >
+    Uploading...
+    </Text>
+      }
         <Spacer />
       </View>
     </View>

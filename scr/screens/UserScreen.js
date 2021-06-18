@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Text, LogBox, StyleSheet } from "react-native";
+import { Text, LogBox, StyleSheet,Button } from "react-native";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ProfileContext } from "../context/ProfileContext";
 import { Context as PostContext } from "../context/PostContext";
@@ -8,10 +8,9 @@ import SpacerCustom from "../components/Spacers/SpacerCustom";
 import UserProfileCard from "../components/ProfileComps/UserProfileCard";
 
 const UserScreen = ({ navigation }) => {
-  const { fetchProfile, state, resetUserProfile } = useContext(AuthContext);
-  const { followReq, unfollowReq } = useContext(ProfileContext);
+  const { followReq, unfollowReq,resetUserProfile,fetchProfile,state } = useContext(ProfileContext);
   const { ratePost } = useContext(PostContext);
-  const nick_name = navigation.getParam("data");
+  const userID = navigation.getParam("data");
   /*
   state.data === Object {
   "posts": Array [
@@ -40,8 +39,9 @@ const UserScreen = ({ navigation }) => {
       "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.",
     ]);
     resetUserProfile();
-    fetchProfile({ nick_name });
+    fetchProfile({ userID });
   }, []);
+  
   return (
     <SafeAreaProvider>
       <SpacerCustom vertical={10} />

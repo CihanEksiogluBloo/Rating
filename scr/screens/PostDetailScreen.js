@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import {StyleSheet, Button, FlatList,LogBox,ScrollView } from "react-native";
+import React, { useContext, useEffect,useState } from "react";
+import {StyleSheet, FlatList,LogBox,ScrollView,TouchableOpacity } from "react-native";
+import {Button,Text} from "react-native-elements";
 import PostView from "../components/postComp/PostView";
 import CommentsOnPost from "../components/postComp/CommentsOnPost";
 import { Context as PostContext } from "../context/PostContext";
@@ -9,7 +10,8 @@ import SpacerCustom from "../components/Spacers/SpacerCustom";
 
 const PostDetailScreen = ({ navigation }) => {
   const item = navigation.getParam("data");
-  const { state, fetchPostComments,PostCommenting } = useContext(PostContext);
+  const { state, fetchPostComments,PostCommenting,deletePost } = useContext(PostContext);
+  const [deleteReq, setDeleteReq] = useState(false);
 
   /*data ===
   "explain": "A",
@@ -23,6 +25,8 @@ const PostDetailScreen = ({ navigation }) => {
   "screen": "PostDetailDiscover",
   "star": 3,
   "userID": "2",
+  "myProfile": "true/false"
+  "navName":"asdas"
 }
     */
   useEffect(() => {
@@ -44,7 +48,45 @@ const PostDetailScreen = ({ navigation }) => {
           postID={item.postID}
           userID={item.userID}
           ratePost={item.ratePost}
+          navName={item.navName}
         />
+        {
+          
+          item.myProfile && !deleteReq ?        
+          <TouchableOpacity onPress={() => {deletePost(item.postID),setDeleteReq(true)}} style={{alignSelf:"center",padding:10 }} >
+          <Text
+            style={{
+              backgroundColor: "#325288",
+              padding: 12,
+              fontSize: 15,
+              borderRadius: 20,
+              fontWeight: "bold",
+              color: "white",
+
+            }}
+          >
+            Delete Post
+          </Text>
+        </TouchableOpacity>
+          :item.myProfile && deleteReq ? <TouchableOpacity style={{alignSelf:"center",padding:10 }} disabled>
+          <Text
+            style={{
+              backgroundColor: "#325288",
+              padding: 12,
+              fontSize: 15,
+              borderRadius: 20,
+              fontWeight: "bold",
+              color: "white",
+
+            }}
+          >
+            Deleting...
+          </Text>
+          </TouchableOpacity>
+          :null
+
+        
+        }
         <SpacerCustom horizontal={10} vertical={5}>
         <CommentingArea PostCommenting={PostCommenting} 
         postID={item.postID} 
@@ -75,6 +117,7 @@ const PostDetailScreen = ({ navigation }) => {
     </SafeAreaProvider>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

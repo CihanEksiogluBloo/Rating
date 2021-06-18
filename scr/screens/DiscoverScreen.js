@@ -8,6 +8,7 @@ import {
   LogBox,
   RefreshControl,
   Text,
+  Button,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import Spacer from "../components/Spacers/Spacer";
@@ -104,15 +105,16 @@ state.searchList === [
                   <View style={{ flexDirection: "row" }}>
                     <MiniPost
                       imageName={item.image}
-                      profile_image={item.profile_image}
-                      nick_name={item.nick_name}
+                      profile_image={item.user.profile_image}
+                      nick_name={item.user.nick_name}
                       star={item.star}
                       screen="PostDetailDiscover"
-                      userID={item.userID}
+                      userID={item.user._id}
                       postID={item._id}
                       ratePost={ratePost}
                       explain={item.explain}
                       fullList={state.discover}
+                      myProfile={false}
                     />
                   </View>
                 );
@@ -142,6 +144,7 @@ state.searchList === [
                       nick_name={item.nick_name}
                       profile_image={item.profile_image}
                       star={item.user_rating}
+                      userID={item._id}
                     />
                   );
                 }}

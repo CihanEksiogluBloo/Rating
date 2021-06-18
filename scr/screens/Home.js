@@ -9,9 +9,10 @@ import {
   LogBox,
   KeyboardAvoidingView,
   ActivityIndicator,
+  Text
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import PostView from "../components/postComp/PostView"
+import PostView from "../components/postComp/PostView";
 import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -58,27 +59,32 @@ const HomeScreen = () => {
           ) : null}
 
           <SafeAreaProvider style={styles.container}>
-            <FlatList
-              data={state.post}
-              keyExtractor={(item) => item._id}
-              renderItem={({ item }) => {
-                return (
-                  <View>
-                    <PostView
-                      profile_image={item.profile_image}
-                      nick_name={item.nick_name}
-                      star={item.star}
-                      image={item.image}
-                      explain={item.explain}
-                      postID={item._id}
-                      userID={item.userID}
-                      ratePost={ratePost}
-                      showCommentsButton={true}
-                    />
-                  </View>
-                );
-              }}
-            />
+            {state.post.length > 0 ? (
+              Array.isArray(state.post[0].points) ? (
+                <FlatList
+                  data={state.post}
+                  keyExtractor={(item) => item._id}
+                  renderItem={({ item }) => {
+                    return (
+                      <View>
+                        <PostView
+                          profile_image={item.user.profile_image}
+                          nick_name={item.user.nick_name}
+                          star={item.star}
+                          image={item.image}
+                          explain={item.explain}
+                          postID={item._id}
+                          userID={item.user._id}
+                          ratePost={ratePost}
+                          showCommentsButton={true}
+                          points={item.points}
+                        />
+                      </View>
+                    );
+                  }}
+                />
+              ) : null
+            ) : <Text>Hi follow someone! or just try login again.</Text>}
           </SafeAreaProvider>
         </ScrollView>
       </KeyboardAvoidingView>

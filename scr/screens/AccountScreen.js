@@ -10,19 +10,16 @@ import {
   ActivityIndicator
 } from "react-native";
 import { Button } from "react-native-elements";
-import Spacer from "../components/Spacers/Spacer";
-import { Context as AuthContext } from "../context/AuthContext";
+import { Context as ProfileContext } from "../context/ProfileContext";
 import {Context as PostContext} from '../context/PostContext';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
-import ProfileAvatar from "../components/ProfileComps/ProfileAvatar";
 import Profile from "../components/ProfileComps/Profile";
 import MiniPost from "../components/postComp/MiniPost";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 
 const AccountScreen = ({ navigation }) => {
-  const { fetchProfile, state,resetmyProfile } = useContext(AuthContext);
+  const { fetchProfile, state,resetmyProfile } = useContext(ProfileContext);
   const {ratePost} = useContext(PostContext);
   const [veri, setVeri] = useState({});
 
@@ -59,12 +56,12 @@ const [refreshing, setRefreshing] = useState(false);
 const onRefresh = React.useCallback(() => {
   setRefreshing(true);
   resetmyProfile();
-  fetchProfile({ nick_name: "myProfile" });
+  fetchProfile({ userID: "myProfile" });
   wait(2000).then(() => setRefreshing(false));
 }, []);
 
   useEffect(() => {
-    fetchProfile({ nick_name: "myProfile" });
+    fetchProfile({ userID: "myProfile" });
   }, []);
 
   return (
@@ -80,7 +77,8 @@ const onRefresh = React.useCallback(() => {
           }
         >
       <SpacerCustom vertical={10}>
-        {state.myProfile && refreshing == false ? (
+
+        {typeof state.myProfile.data !== 'undefined' && refreshing == false ? (
           <ScrollView>
             <Profile data={state.myProfile.data} />
             <FlatList
@@ -100,13 +98,14 @@ const onRefresh = React.useCallback(() => {
                       postID={item._id}
                       ratePost={ratePost}
                       explain={item.explain}
+                      myProfile={state.myProfile.data.myProfile}
                     />
                   </SafeAreaProvider>
                 );
               }}
             />
           </ScrollView>
-        ) : <ActivityIndicator size="large" />}
+            ) : <ActivityIndicator size="large" />}
       </SpacerCustom>
         </ScrollView>
       </KeyboardAvoidingView>

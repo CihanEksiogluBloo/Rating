@@ -8,10 +8,11 @@ import { withNavigation } from "react-navigation";
 
 const localhostUri = getLocalhostUri();
 
-const ProfileMiniCard = ({ username, nick_name, profile_image, star,navigation }) => {
+const ProfileMiniCard = ({ username, nick_name, profile_image, star,navigation,userID }) => {
   return (
     <SpacerCustom horizontal={20}>
-    <TouchableOpacity onPress={()=> navigation.navigate("UserScrDiscover", { "data":nick_name }) } >
+    
+    <TouchableOpacity onPress={()=> navigation.navigate("UserScrDiscover", { "data":userID }) } >
       <View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
           <View style={{marginHorizontal:5}}>

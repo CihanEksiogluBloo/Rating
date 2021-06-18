@@ -6,7 +6,7 @@ import {AirbnbRating} from 'react-native-elements';
 
 
 
-const Rating = ({userID,postID,ratePost,size}) => {
+const Rating = ({userID,postID,ratePost,size,value}) => {
 
     return <View>
 
@@ -14,7 +14,7 @@ const Rating = ({userID,postID,ratePost,size}) => {
         style={{flexDirection:"row"}}
         count={5}
         reviews={["Terrible", "Bad", "Meh","Good", "Great!"]}
-        defaultRating={3}
+        defaultRating={value || 3}
         size={size || 30}
         onFinishRating={(star)=>ratePost(userID,postID,star) }
       />

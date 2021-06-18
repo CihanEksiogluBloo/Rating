@@ -7,7 +7,7 @@ import { getLocalhostUri } from "../../api/localhostUri";
 
 const localhostUri = getLocalhostUri();
 
-const ProfileAvatar = ({ profile_image, nick_name, navName }) => {
+const ProfileAvatar = ({ profile_image, nick_name, navName,userID }) => {
   const route = navName || "UserSrc"
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -18,7 +18,7 @@ const ProfileAvatar = ({ profile_image, nick_name, navName }) => {
         />
       </SpacerCustom>
       <SpacerCustom all={7} left={3} right={2}>
-        <NavLink text={nick_name} routeName={route} data={nick_name} />
+        <NavLink text={nick_name} routeName={route} data={userID} />
       </SpacerCustom>
     </View>
   );

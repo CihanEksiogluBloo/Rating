@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import { Image,Overlay } from "react-native-elements";
+import { Image, Overlay } from "react-native-elements";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 import Rating from "../evaluation/Rating";
 import SocialValuePoint from "../evaluation/SocialValuePoint";
@@ -26,6 +26,7 @@ const MiniPost = ({
   postID,
   ratePost,
   explain,
+  myProfile,
 }) => {
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
@@ -39,17 +40,19 @@ const MiniPost = ({
           onLongPress={toggleOverlay}
           delayLongPress={100}
           onPress={() =>
-            navigation.navigate(screen, {data:{
-              imageName,
-              profile_image,
-              nick_name,
-              star,
-              screen,
-              userID,
-              postID,
-              ratePost,
-              explain,
-            }
+            navigation.navigate(screen, {
+              data: {
+                imageName,
+                profile_image,
+                nick_name,
+                star,
+                screen,
+                userID,
+                postID,
+                ratePost,
+                explain,
+                myProfile,
+              },
             })
           }
         >
@@ -64,13 +67,17 @@ const MiniPost = ({
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <ProfileAvatar
-              localhostUri={localhostUri}
-              profile_image={profile_image}
-              nick_name={nick_name}
-            />
-
-            <SocialValuePoint star={star} />
+            <View>
+              <ProfileAvatar
+                localhostUri={localhostUri}
+                profile_image={profile_image}
+                nick_name={nick_name}
+                userID={userID}
+              />
+            </View>
+            <View>
+              <SocialValuePoint star={star} />
+            </View>
           </View>
 
           <Image
