@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text, Avatar, Button } from "react-native-elements";
+import { Text, Avatar } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import Spacer from "../Spacers/Spacer";
 import { TouchableOpacity } from "react-native";
@@ -50,7 +50,11 @@ const AvatarPicker = ({ avatarUri, submit }) => {
           />
           <Spacer />
 
-          <TouchableOpacity onPress={() => {submit(ResultObj),setUploading(true)}}>
+          <TouchableOpacity
+            onPress={() => {
+              submit(ResultObj), setUploading(true);
+            }}
+          >
             <Text
               style={{
                 backgroundColor: "#325288",
@@ -77,18 +81,18 @@ const AvatarPicker = ({ avatarUri, submit }) => {
             activeOpacity={0.7}
           />
           <Spacer />
-            <Text
-              style={{
-                backgroundColor: "#325288",
-                padding: 10,
-                fontSize: 15,
-                borderRadius: 20,
-                fontWeight: "bold",
-                color: "white",
-              }}
-            >
-              Uploading
-            </Text>
+          <Text
+            style={{
+              backgroundColor: "#325288",
+              padding: 10,
+              fontSize: 15,
+              borderRadius: 20,
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            Uploading
+          </Text>
         </View>
       ) : (
         <Avatar
@@ -97,7 +101,9 @@ const AvatarPicker = ({ avatarUri, submit }) => {
             uri: avatarUri,
           }}
           size="xlarge"
-          onPress={() => {pickImage()}}
+          onPress={() => {
+            pickImage();
+          }}
           activeOpacity={0.7}
         />
       )}

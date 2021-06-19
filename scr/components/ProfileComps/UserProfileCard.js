@@ -9,8 +9,7 @@ import {
 import MiniPost from "../postComp/MiniPost";
 import Profile from "./Profile";
 
-
-const UserProfileCard = ({ratePost, data, follow, unfollow }) => {
+const UserProfileCard = ({ ratePost, data, follow, unfollow }) => {
   //<UserProfileCard data={data.userProfile.data} />
   /*
   Object {

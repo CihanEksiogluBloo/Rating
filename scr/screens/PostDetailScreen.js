@@ -1,16 +1,23 @@
-import React, { useContext, useEffect,useState } from "react";
-import {StyleSheet, FlatList,LogBox,ScrollView,TouchableOpacity } from "react-native";
-import {Button,Text} from "react-native-elements";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  StyleSheet,
+  FlatList,
+  LogBox,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Text } from "react-native-elements";
 import PostView from "../components/postComp/PostView";
 import CommentsOnPost from "../components/postComp/CommentsOnPost";
 import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import CommentingArea from '../components/postComp/CommentingArea';
+import CommentingArea from "../components/postComp/CommentingArea";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 
 const PostDetailScreen = ({ navigation }) => {
   const item = navigation.getParam("data");
-  const { state, fetchPostComments,PostCommenting,deletePost } = useContext(PostContext);
+  const { state, fetchPostComments, PostCommenting, deletePost } =
+    useContext(PostContext);
   const [deleteReq, setDeleteReq] = useState(false);
 
   /*data ===
@@ -50,50 +57,53 @@ const PostDetailScreen = ({ navigation }) => {
           ratePost={item.ratePost}
           navName={item.navName}
         />
-        {
-          
-          item.myProfile && !deleteReq ?        
-          <TouchableOpacity onPress={() => {deletePost(item.postID),setDeleteReq(true)}} style={{alignSelf:"center",padding:10 }} >
-          <Text
-            style={{
-              backgroundColor: "#325288",
-              padding: 12,
-              fontSize: 15,
-              borderRadius: 20,
-              fontWeight: "bold",
-              color: "white",
-
+        {item.myProfile && !deleteReq ? (
+          <TouchableOpacity
+            onPress={() => {
+              deletePost(item.postID), setDeleteReq(true);
             }}
+            style={{ alignSelf: "center", padding: 10 }}
           >
-            Delete Post
-          </Text>
-        </TouchableOpacity>
-          :item.myProfile && deleteReq ? <TouchableOpacity style={{alignSelf:"center",padding:10 }} disabled>
-          <Text
-            style={{
-              backgroundColor: "#325288",
-              padding: 12,
-              fontSize: 15,
-              borderRadius: 20,
-              fontWeight: "bold",
-              color: "white",
-
-            }}
-          >
-            Deleting...
-          </Text>
+            <Text
+              style={{
+                backgroundColor: "#325288",
+                padding: 12,
+                fontSize: 15,
+                borderRadius: 20,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Delete Post
+            </Text>
           </TouchableOpacity>
-          :null
-
-        
-        }
+        ) : item.myProfile && deleteReq ? (
+          <TouchableOpacity
+            style={{ alignSelf: "center", padding: 10 }}
+            disabled
+          >
+            <Text
+              style={{
+                backgroundColor: "#325288",
+                padding: 12,
+                fontSize: 15,
+                borderRadius: 20,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Deleting...
+            </Text>
+          </TouchableOpacity>
+        ) : null}
         <SpacerCustom horizontal={10} vertical={5}>
-        <CommentingArea PostCommenting={PostCommenting} 
-        postID={item.postID} 
-        userProfileImage={""} 
-        userNickName={""} 
-        userStar={""} />
-
+          <CommentingArea
+            PostCommenting={PostCommenting}
+            postID={item.postID}
+            userProfileImage={""}
+            userNickName={""}
+            userStar={""}
+          />
 
           <FlatList
             data={state.comments[0]}
@@ -105,27 +115,23 @@ const PostDetailScreen = ({ navigation }) => {
                   nick_name={item.user.nick_name}
                   star={item.user.user_rating}
                   comment={item.comment}
-                  
                 />
               );
             }}
           />
         </SpacerCustom>
-
-
       </ScrollView>
     </SafeAreaProvider>
   );
 };
 
-
 PostDetailScreen.navigationOptions = {
   title: "Post Detail",
-  headerStyle:{
-    backgroundColor:"#9BA4B4",
+  headerStyle: {
+    backgroundColor: "#9BA4B4",
   },
   headerTitleStyle: {
-    color:"white"
+    color: "white",
   },
 };
 

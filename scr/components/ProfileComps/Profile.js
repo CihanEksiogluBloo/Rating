@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, BottomSheet, ListItem } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { Text, Avatar, Button, Tooltip } from "react-native-elements";
 import { getLocalhostUri } from "../../api/localhostUri";
-import SocialValuePoint from "../evaluation/SocialValuePoint";
-import MiniPost from "../postComp/MiniPost";
-import Spacer from "../Spacers/Spacer";
 import SpacerCustom from "../Spacers/SpacerCustom";
 import ProfileActionButton from "./ProfileActionButton";
 import { withNavigation } from "react-navigation";
@@ -89,7 +86,13 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                     <Text h4>{data.user.name}</Text>
                     <SpacerCustom horizontal={5}>
                       {data.user.officialAccount == 1 ? (
-                        <Tooltip popover={<Text style={{color:"white"}}>Official Account</Text>}>
+                        <Tooltip
+                          popover={
+                            <Text style={{ color: "white" }}>
+                              Official Account
+                            </Text>
+                          }
+                        >
                           <AntDesign
                             name="checkcircle"
                             size={24}
@@ -97,7 +100,13 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                           />
                         </Tooltip>
                       ) : data.user.officialAccount == 2 ? (
-                        <Tooltip popover={<Text style={{color:"white"}}>Rating App Owner</Text>}>
+                        <Tooltip
+                          popover={
+                            <Text style={{ color: "white" }}>
+                              Rating App Owner
+                            </Text>
+                          }
+                        >
                           <AntDesign
                             name="checkcircle"
                             size={24}
@@ -173,22 +182,25 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
               justifyContent: "space-around",
               borderColor: "rgba(125, 125, 125, 0.5)",
               borderTopWidth: 1,
-              marginHorizontal:20,
-              padding:5,
-              marginVertical:5
-
+              marginHorizontal: 20,
+              padding: 5,
+              marginVertical: 5,
             }}
           >
             <View style={styles.followStrings}>
               <Text style={styles.followNumberText}>{data.postCounter}</Text>
               <Text>Posts</Text>
             </View>
-            
-            <Tooltip popover={<Text style={{color:"white"}}>You can't see Followers</Text>}>
-            <View style={styles.followStrings}>
-              <Text style={styles.followNumberText}>{data.followers}</Text>
-              <Text>Followers</Text>
-            </View>
+
+            <Tooltip
+              popover={
+                <Text style={{ color: "white" }}>You can't see Followers</Text>
+              }
+            >
+              <View style={styles.followStrings}>
+                <Text style={styles.followNumberText}>{data.followers}</Text>
+                <Text>Followers</Text>
+              </View>
             </Tooltip>
             <View style={styles.followStrings}>
               <Text style={styles.followNumberText}>{data.following}</Text>

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { View, StyleSheet } from "react-native";
+import React from "react";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Text } from "react-native-elements";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 
-const CommentsOnPost = ({ profile_image, nick_name, comment,navigation,userID }) => {
+const CommentsOnPost = ({
+  profile_image,
+  nick_name,
+  comment,
+  navigation,
+  userID,
+}) => {
   return (
     <View
       style={{
@@ -26,21 +31,32 @@ const CommentsOnPost = ({ profile_image, nick_name, comment,navigation,userID })
         }}
       >
         {nick_name === "Me" ? (
-          <TouchableOpacity onPress={()=>navigation.navigate("Account")}>
-            <Text style={{color:"royalblue",padding:5,fontSize:15,fontWeight:"bold",}}>{nick_name}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+            <Text
+              style={{
+                color: "royalblue",
+                padding: 5,
+                fontSize: 15,
+                fontWeight: "bold",
+              }}
+            >
+              {nick_name}
+            </Text>
           </TouchableOpacity>
         ) : (
-          <ProfileAvatar profile_image={profile_image} nick_name={nick_name} userID={userID} />
-        )
-      }
+          <ProfileAvatar
+            profile_image={profile_image}
+            nick_name={nick_name}
+            userID={userID}
+          />
+        )}
       </View>
       <View
         style={{
           backgroundColor: "#eeeded",
           borderRadius: 15,
           marginVertical: 5,
-          padding:5
-          
+          padding: 5,
         }}
       >
         <Text style={styles.textStyle}>{comment}</Text>

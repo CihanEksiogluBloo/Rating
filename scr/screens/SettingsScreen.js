@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { Button, Text } from "react-native-elements";
+import { Text } from "react-native-elements";
 import Spacer from "../components/Spacers/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 
@@ -11,11 +11,7 @@ const SettingsScreen = () => {
     <View style={{ flex: 1 }}>
       <Spacer>
         <TouchableOpacity onPress={signout}>
-          <Text
-            style={styles.textButtonStyle}
-          >
-            Sign Out
-          </Text>
+          <Text style={styles.textButtonStyle}>Sign Out</Text>
         </TouchableOpacity>
       </Spacer>
     </View>
@@ -29,11 +25,10 @@ SettingsScreen.navigationOptions = {
   headerTitleStyle: {
     color: "white",
   },
-
 };
 
 const styles = StyleSheet.create({
-  textButtonStyle : {
+  textButtonStyle: {
     textAlign: "center",
     backgroundColor: "#325288",
     padding: 10,

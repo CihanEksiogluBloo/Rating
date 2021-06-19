@@ -49,15 +49,15 @@ const ShareScreen = () => {
 };
 
 ShareScreen.navigationOptions = ({ navigation }) => {
-    return {
-      headerStyle:{
-        backgroundColor:"#9BA4B4",
-      },
-      headerTitleStyle: {
-        color:"white"
-      },
-    };
+  return {
+    headerStyle: {
+      backgroundColor: "#9BA4B4",
+    },
+    headerTitleStyle: {
+      color: "white",
+    },
   };
+};
 
 const styles = StyleSheet.create({
   ButtonGroupStyle: {

@@ -1,8 +1,7 @@
 import createDataContext from "./createDataContext";
 import trackerApi from "../api/tracker";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { navigate } from "../navigationRef";
-import createFormData from "../helpers/createFormData";
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -12,25 +11,24 @@ const authReducer = (state, action) => {
       return { errorMessage: "", token: action.payload };
     case "clear_error":
       return { ...state, errorMessage: "" };
-    case 'signout':
-        return { token: null, errorMessage: '' };
+    case "signout":
+      return { token: null, errorMessage: "" };
     default:
       return state;
   }
 };
 
 const tryLocalSignin = (dispatch) => () => {
-    const token = AsyncStorage.getItem("token");
-    //navigate("loginFlow");
+  const token = AsyncStorage.getItem("token");
+  //navigate("loginFlow");
 
- //This codes changed to comment strings for Github. 
-    if (token) {
-      dispatch({ type: "signInorUp", payload: token });
-      navigate("HomeSrc");
-    } else {
-      navigate("loginFlow");
-    }
-
+  //This codes changed to comment strings for Github.
+  if (token) {
+    dispatch({ type: "signInorUp", payload: token });
+    navigate("HomeSrc");
+  } else {
+    navigate("loginFlow");
+  }
 };
 
 const signup = (dispatch) => {
@@ -61,7 +59,8 @@ const signup = (dispatch) => {
   };
 };
 
-const signin = (dispatch) =>
+const signin =
+  (dispatch) =>
   async ({ email, password }) => {
     // try to sign in
     try {
@@ -89,13 +88,11 @@ const clearErrorMessage = (dispatch) => () => {
   });
 };
 
-const signout = dispatch => async () => {
-    await AsyncStorage.removeItem('token');
-    dispatch({ type: 'signout' });
-    navigate('loginFlow');
-  };
-
-
+const signout = (dispatch) => async () => {
+  await AsyncStorage.removeItem("token");
+  dispatch({ type: "signout" });
+  navigate("loginFlow");
+};
 
 export const { Provider, Context } = createDataContext(
   authReducer,
@@ -106,5 +103,5 @@ export const { Provider, Context } = createDataContext(
     clearErrorMessage,
     tryLocalSignin,
   },
-  { token: null, errorMessage: ""}
+  { token: null, errorMessage: "" }
 );

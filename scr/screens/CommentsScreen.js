@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { Text, Input } from "react-native-elements";
 import CommentsOnPost from "../components/postComp/CommentsOnPost";
 import Spacer from "../components/Spacers/Spacer";
 import { Context as PostContext } from "../context/PostContext";
 
 const CommentsScreen = ({ navigation }) => {
-  const { state, fetchPostComments,PostCommenting } = useContext(PostContext);
+  const { state, fetchPostComments, PostCommenting } = useContext(PostContext);
   const postID = navigation.getParam("data");
   const [comment, setComment] = useState(null);
   const [myComment, setMyComment] = useState(false);
@@ -34,48 +34,53 @@ const CommentsScreen = ({ navigation }) => {
   return (
     <View>
       <Spacer>
-        {!myComment ? 
-        <View
-          style={{ backgroundColor: "#e1e5ea", borderRadius: 20, padding: 10 }}
-        >
-          <Input
-            placeholder="Comment... (Max 466 Characters.)"
-            maxLength={466}
-            containerStyle={styles.InputContainer}
-            inputStyle={styles.InputLetterStyle}
-            onChangeText={(c) => setComment(c)}
-          />
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => {
-                PostCommenting(postID,comment)
-                setMyComment(true);
-              }}
-              disabled={comment ? false : true}
-            >
-              <Text style={styles.InputButton}>Post</Text>
-            </TouchableOpacity>
+        {!myComment ? (
+          <View
+            style={{
+              backgroundColor: "#e1e5ea",
+              borderRadius: 20,
+              padding: 10,
+            }}
+          >
+            <Input
+              placeholder="Comment... (Max 466 Characters.)"
+              maxLength={466}
+              containerStyle={styles.InputContainer}
+              inputStyle={styles.InputLetterStyle}
+              onChangeText={(c) => setComment(c)}
+            />
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  PostCommenting(postID, comment);
+                  setMyComment(true);
+                }}
+                disabled={comment ? false : true}
+              >
+                <Text style={styles.InputButton}>Post</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View> :
-        <CommentsOnPost
-                    profile_image={state.comments[1].reqProfileImage}
-                    nick_name={state.comments[1].reqNick}
-                    star={state.comments[1].reqUserStar}
-                    comment={comment}
-                  />
-      }
+        ) : (
+          <CommentsOnPost
+            profile_image={state.comments[1].reqProfileImage}
+            nick_name={state.comments[1].reqNick}
+            star={state.comments[1].reqUserStar}
+            comment={comment}
+          />
+        )}
         {state.comments[0] ? (
           <FlatList
             data={state.comments[0]}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => {
               return (
-                  <CommentsOnPost
-                    profile_image={item.user.profile_image}
-                    nick_name={item.user.nick_name}
-                    star={item.user.user_rating}
-                    comment={item.comment}
-                  />
+                <CommentsOnPost
+                  profile_image={item.user.profile_image}
+                  nick_name={item.user.nick_name}
+                  star={item.user.user_rating}
+                  comment={item.comment}
+                />
               );
             }}
           />
@@ -89,14 +94,13 @@ const CommentsScreen = ({ navigation }) => {
 
 CommentsScreen.navigationOptions = {
   title: "Comments",
-  headerStyle:{
-    backgroundColor:"#9BA4B4",
+  headerStyle: {
+    backgroundColor: "#9BA4B4",
   },
   headerTitleStyle: {
-    color:"white"
+    color: "white",
   },
 };
-
 
 const styles = StyleSheet.create({
   InputContainer: {

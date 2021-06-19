@@ -10,7 +10,6 @@ const ProfileActionButton = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [followed, setFollowed] = useState(isFollowing);
-  
 
   const list = [
     {
@@ -24,7 +23,7 @@ const ProfileActionButton = ({
     {
       title: "Report",
       onPress: () => {
-        setWhichlist(list2)
+        setWhichlist(list2);
       },
     },
     {
@@ -40,23 +39,28 @@ const ProfileActionButton = ({
       title: "Report",
       onPress: () => {
         setIsVisible(false);
-        setWhichlist(list)
+        setWhichlist(list);
       },
     },
     {
       title: "Cancel",
       containerStyle: { backgroundColor: "red" },
       titleStyle: { color: "white" },
-      onPress: () => {setIsVisible(false);setWhichlist(list); },
+      onPress: () => {
+        setIsVisible(false);
+        setWhichlist(list);
+      },
     },
   ];
   const [whichlist, setWhichlist] = useState(list);
   return (
-    <View style={{
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      marginVertical: 20,
-    }}>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        marginVertical: 20,
+      }}
+    >
       {followed === false ? (
         <Button
           title={"Follow"}
@@ -76,13 +80,13 @@ const ProfileActionButton = ({
         />
       )}
       <Button
-          title={"Report"}
-          onPress={() => {
-            setWhichlist(list2)
-            setIsVisible(true);
-          }}
-          containerStyle={{ minWidth: 150 }}
-        />
+        title={"Report"}
+        onPress={() => {
+          setWhichlist(list2);
+          setIsVisible(true);
+        }}
+        containerStyle={{ minWidth: 150 }}
+      />
 
       <BottomSheet
         isVisible={isVisible}

@@ -3,13 +3,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  View,
   FlatList,
   KeyboardAvoidingView,
   RefreshControl,
   ActivityIndicator
 } from "react-native";
-import { Button } from "react-native-elements";
 import { Context as ProfileContext } from "../context/ProfileContext";
 import {Context as PostContext} from '../context/PostContext';
 import { MaterialIcons } from "@expo/vector-icons";
@@ -18,10 +16,10 @@ import MiniPost from "../components/postComp/MiniPost";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SpacerCustom from "../components/Spacers/SpacerCustom";
 
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = () => {
   const { fetchProfile, state,resetmyProfile } = useContext(ProfileContext);
   const {ratePost} = useContext(PostContext);
-  const [veri, setVeri] = useState({});
+
 
   /*
   state.myProfile.data === Object {

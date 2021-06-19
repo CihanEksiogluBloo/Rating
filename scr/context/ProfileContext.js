@@ -1,6 +1,5 @@
 import createDataContext from "./createDataContext";
 import trackerApi from "../api/tracker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { navigate } from "../navigationRef";
 import createFormData from "../helpers/createFormData";
 
@@ -99,7 +98,7 @@ export const { Provider, Context } = createDataContext(
     updateInfoUser,
     resetUserProfile,
     resetmyProfile,
-    arena
+    arena,
   },
   { errorMessage: "", myProfile: [], userProfile: [], arenaProfiles: [] }
 );

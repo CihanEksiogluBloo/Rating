@@ -22,9 +22,10 @@ const PostView = ({
   showCommentsButton,
   points,
 }) => {
-
   let lastRateORDefaultValue = 3;
-  typeof points !== 'undefined' ? lastRateORDefaultValue = points[0] ? points[0].star : 3 : null
+  typeof points !== "undefined"
+    ? (lastRateORDefaultValue = points[0] ? points[0].star : 3)
+    : null;
   /* item example
 item === Object {
   "__v": 0,
@@ -56,7 +57,6 @@ item === Object {
           }}
         >
           <View style={{ flex: 1 }}>
-          
             <ProfileAvatar
               localhostUri={localhostUri}
               profile_image={profile_image}

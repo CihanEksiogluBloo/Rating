@@ -8,7 +8,6 @@ import {
   LogBox,
   RefreshControl,
   Text,
-  Button,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import Spacer from "../components/Spacers/Spacer";

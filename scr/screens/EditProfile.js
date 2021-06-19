@@ -1,20 +1,19 @@
-import React, { useState,useContext } from "react";
-import { View, StyleSheet,TouchableOpacity } from "react-native";
+import React, { useState, useContext } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Input, Text } from "react-native-elements";
 import AvatarPicker from "../components/Pickers/AvatarPicker";
 import Spacer from "../components/Spacers/Spacer";
 import { getLocalhostUri } from "../api/localhostUri";
-import {Context as ProfileContext} from '../context/ProfileContext';
+import { Context as ProfileContext } from "../context/ProfileContext";
 
 const localhostUri = getLocalhostUri();
 
 const EditProfile = ({ navigation }) => {
-  const {updateProfileImage,updateInfoUser} =
-  useContext(ProfileContext);
+  const { updateProfileImage, updateInfoUser } = useContext(ProfileContext);
   const datas = navigation.getParam("data");
   const [about, setAbout] = useState(datas.about);
   const [name, setName] = useState(datas.name);
-  const [uploading,setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   /*datas === {
   "_id": "2",
   "about": "Test strings here",
@@ -54,33 +53,39 @@ const EditProfile = ({ navigation }) => {
           autoCorrect={false}
         />
 
-        {!uploading ?<TouchableOpacity onPress={() => {setUploading(true),updateInfoUser(name,about)} }>
-        <Text
-          style={{
-            backgroundColor: "#325288",
-            padding: 10,
-            fontSize: 15,
-            borderRadius: 20,
-            fontWeight: "bold",
-            color:"white"
-          }}
-        >
-          Save Informations
-        </Text>
-      </TouchableOpacity> : 
-      <Text
-      style={{
-        backgroundColor: "#325288",
-        padding: 10,
-        fontSize: 15,
-        borderRadius: 20,
-        fontWeight: "bold",
-        color:"white"
-      }}
-    >
-    Uploading...
-    </Text>
-      }
+        {!uploading ? (
+          <TouchableOpacity
+            onPress={() => {
+              setUploading(true), updateInfoUser(name, about);
+            }}
+          >
+            <Text
+              style={{
+                backgroundColor: "#325288",
+                padding: 10,
+                fontSize: 15,
+                borderRadius: 20,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              Save Informations
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <Text
+            style={{
+              backgroundColor: "#325288",
+              padding: 10,
+              fontSize: 15,
+              borderRadius: 20,
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            Uploading...
+          </Text>
+        )}
         <Spacer />
       </View>
     </View>
@@ -89,14 +94,13 @@ const EditProfile = ({ navigation }) => {
 
 EditProfile.navigationOptions = {
   title: "Comments",
-  headerStyle:{
-    backgroundColor:"#9BA4B4",
+  headerStyle: {
+    backgroundColor: "#9BA4B4",
   },
   headerTitleStyle: {
-    color:"white"
+    color: "white",
   },
 };
-
 
 const styles = StyleSheet.create({});
 

@@ -34,7 +34,7 @@ const MiniPost = ({
   };
 
   return (
-    <View >
+    <View>
       <SpacerCustom all={5}>
         <TouchableOpacity
           onLongPress={toggleOverlay}
@@ -63,9 +63,9 @@ const MiniPost = ({
           />
         </TouchableOpacity>
 
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between",  }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <View>
               <ProfileAvatar
@@ -92,7 +92,6 @@ const MiniPost = ({
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({});
 

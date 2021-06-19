@@ -9,6 +9,7 @@ import { withNavigation } from "react-navigation";
 const localhostUri = getLocalhostUri();
 
 const ProfileMiniCard = ({ username, nick_name, profile_image, star,navigation,userID }) => {
+  
   return (
     <SpacerCustom horizontal={20}>
     

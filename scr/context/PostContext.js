@@ -117,7 +117,6 @@ const deletePost = (dispatch) => async (postID) => {
   try {
     await trackerApi.post("/postDelete", { postID });
     navigate("Account");
-
   } catch (error) {
     console.log(error);
   }
@@ -136,7 +135,7 @@ export const { Provider, Context } = createDataContext(
     resetDiscover,
     PostCommenting,
     fetchSearchData,
-    deletePost
+    deletePost,
   },
   {
     errorMessage: "",

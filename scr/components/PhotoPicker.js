@@ -5,7 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { Input, Text, Button, Overlay } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
@@ -112,7 +112,6 @@ const ImagePickerComp = ({ onSubmit, category, errorMessage }) => {
                   onPress={() => setImage(null)}
                 />
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-                  
                   <View
                     style={{
                       justifyContent: "space-around",
@@ -122,9 +121,9 @@ const ImagePickerComp = ({ onSubmit, category, errorMessage }) => {
                       margin: 20,
                     }}
                   >
-                  <Text style={{ fontSize: 20 }}>
-                    Are you sure you want to upload the image?
-                  </Text>
+                    <Text style={{ fontSize: 20 }}>
+                      Are you sure you want to upload the image?
+                    </Text>
                     {posting ? (
                       <View>
                         <Button
@@ -142,7 +141,10 @@ const ImagePickerComp = ({ onSubmit, category, errorMessage }) => {
                           }
                           title=" Yeap!"
                           style={{ justifyContent: "flex-start" }}
-                          onPress={() => {onSubmit(input, ResultObj, category),setPosting(false)}}
+                          onPress={() => {
+                            onSubmit(input, ResultObj, category),
+                              setPosting(false);
+                          }}
                         />
                         <Button
                           buttonStyle={{
@@ -164,7 +166,9 @@ const ImagePickerComp = ({ onSubmit, category, errorMessage }) => {
                           }}
                         />
                       </View>
-                    ) : <ActivityIndicator size="large" color="#00ff00" />}
+                    ) : (
+                      <ActivityIndicator size="large" color="#00ff00" />
+                    )}
                   </View>
                 </Overlay>
               </View>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Text, LogBox, StyleSheet,Button } from "react-native";
-import { Context as AuthContext } from "../context/AuthContext";
+import { LogBox, StyleSheet } from "react-native";
 import { Context as ProfileContext } from "../context/ProfileContext";
 import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -8,7 +7,8 @@ import SpacerCustom from "../components/Spacers/SpacerCustom";
 import UserProfileCard from "../components/ProfileComps/UserProfileCard";
 
 const UserScreen = ({ navigation }) => {
-  const { followReq, unfollowReq,resetUserProfile,fetchProfile,state } = useContext(ProfileContext);
+  const { followReq, unfollowReq, resetUserProfile, fetchProfile, state } =
+    useContext(ProfileContext);
   const { ratePost } = useContext(PostContext);
   const userID = navigation.getParam("data");
   /*
@@ -41,12 +41,17 @@ const UserScreen = ({ navigation }) => {
     resetUserProfile();
     fetchProfile({ userID });
   }, []);
-  
+
   return (
     <SafeAreaProvider>
       <SpacerCustom vertical={10} />
       {typeof state.userProfile === "object" ? (
-        <UserProfileCard ratePost={ratePost} data={state.userProfile.data} follow={followReq} unfollow={unfollowReq} />
+        <UserProfileCard
+          ratePost={ratePost}
+          data={state.userProfile.data}
+          follow={followReq}
+          unfollow={unfollowReq}
+        />
       ) : null}
     </SafeAreaProvider>
   );
@@ -55,13 +60,12 @@ const UserScreen = ({ navigation }) => {
 UserScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "User Screen",
-    headerStyle:{
-      backgroundColor:"#9BA4B4",
+    headerStyle: {
+      backgroundColor: "#9BA4B4",
     },
     headerTitleStyle: {
-      color:"white"
+      color: "white",
     },
-    
   };
 };
 

@@ -84,7 +84,7 @@ const HomeScreen = () => {
                     );
                   }}
                 />
-              ) : null
+              ) : <Text>Hi follow someone! or just try login again.</Text>
             ) : <Text>Hi follow someone! or just try login again.</Text>}
           </SafeAreaProvider>
         </ScrollView>
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   keyboardAvoidingViewContainer: {
     position: "relative",
+    flex:0.07,
   },
 });
 
