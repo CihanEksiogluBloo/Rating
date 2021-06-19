@@ -13,7 +13,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import PostView from "../components/postComp/PostView";
 import { Context as PostContext } from "../context/PostContext";
-import { Context as AutContext} from "../context/AuthContext";
+import { Context as AutContext } from "../context/AuthContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 
@@ -21,11 +21,10 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const { state, ratePost, fetchFollowedPosts, resetPost } =
     useContext(PostContext);
-    const { signout } =
-    useContext(AutContext);
+  const { signout } = useContext(AutContext);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -80,12 +79,27 @@ const HomeScreen = ({navigation}) => {
                   }}
                 />
               ) : (
-                <Text>Hi follow someone! or just try login again.</Text>
+                <View>
+                  <Text>Hi follow someone! or just try login again.</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      signout(), navigation.navigate("loginFlow");
+                    }}
+                    style={styles.LoginButtonContainer}
+                  >
+                    <Text style={styles.LoginButton}>Login Screen</Text>
+                  </TouchableOpacity>
+                </View>
               )
             ) : (
               <View>
                 <Text>Hi follow someone! or just try login again.</Text>
-                <TouchableOpacity onPress={()=> {signout() , navigation.navigate("loginFlow")} } style={styles.LoginButtonContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    signout(), navigation.navigate("loginFlow");
+                  }}
+                  style={styles.LoginButtonContainer}
+                >
                   <Text style={styles.LoginButton}>Login Screen</Text>
                 </TouchableOpacity>
               </View>
@@ -145,10 +159,9 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontWeight: "bold",
-    backgroundColor:"royalblue"
+    backgroundColor: "royalblue",
   },
   LoginButtonContainer: { padding: 15 },
-
 });
 
 export default HomeScreen;
