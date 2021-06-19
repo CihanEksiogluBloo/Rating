@@ -89,7 +89,7 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                     <Text h4>{data.user.name}</Text>
                     <SpacerCustom horizontal={5}>
                       {data.user.officialAccount == 1 ? (
-                        <Tooltip popover={<Text>Official Account</Text>}>
+                        <Tooltip popover={<Text style={{color:"white"}}>Official Account</Text>}>
                           <AntDesign
                             name="checkcircle"
                             size={24}
@@ -97,7 +97,7 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
                           />
                         </Tooltip>
                       ) : data.user.officialAccount == 2 ? (
-                        <Tooltip popover={<Text>Rating App Owner</Text>}>
+                        <Tooltip popover={<Text style={{color:"white"}}>Rating App Owner</Text>}>
                           <AntDesign
                             name="checkcircle"
                             size={24}
@@ -183,10 +183,13 @@ const Profile = ({ data, navigation, followReq, unfollowReq }) => {
               <Text style={styles.followNumberText}>{data.postCounter}</Text>
               <Text>Posts</Text>
             </View>
+            
+            <Tooltip popover={<Text style={{color:"white"}}>You can't see Followers</Text>}>
             <View style={styles.followStrings}>
               <Text style={styles.followNumberText}>{data.followers}</Text>
               <Text>Followers</Text>
             </View>
+            </Tooltip>
             <View style={styles.followStrings}>
               <Text style={styles.followNumberText}>{data.following}</Text>
               <Text>Following</Text>

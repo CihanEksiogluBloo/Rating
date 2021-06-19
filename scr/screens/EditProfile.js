@@ -87,6 +87,17 @@ const EditProfile = ({ navigation }) => {
   );
 };
 
+EditProfile.navigationOptions = {
+  title: "Comments",
+  headerStyle:{
+    backgroundColor:"#9BA4B4",
+  },
+  headerTitleStyle: {
+    color:"white"
+  },
+};
+
+
 const styles = StyleSheet.create({});
 
 export default EditProfile;

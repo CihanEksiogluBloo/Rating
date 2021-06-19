@@ -19,6 +19,7 @@ import SettingsScreen from "./scr/screens/SettingsScreen";
 import ShareScreen from "./scr/screens/ShareScreen";
 import UserScreen from "./scr/screens/UserScreen";
 import CommentsScreen from "./scr/screens/CommentsScreen";
+import ArenaScreen from "./scr/screens/ArenaScreen";
 
 import { Provider as AuthProvider } from "./scr/context/AuthContext";
 import { Provider as PostProvider } from "./scr/context/PostContext";
@@ -30,14 +31,15 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import EditProfile from "./scr/screens/EditProfile";
-import { Ionicons } from "@expo/vector-icons";
+
+
 
 const HomeList = createStackNavigator({
   HomeSrc: {
     screen: HomeScreen,
     navigationOptions: {
       title: "Rating",
-      headerTitleStyle: { fontWeight: "bold", fontStyle: "italic" },
+      headerTitleStyle: { fontWeight: "bold", fontStyle: "italic",color:"white" },
     },
   },
   Share: ShareScreen,
@@ -55,10 +57,12 @@ const HomeList = createStackNavigator({
       title: "Post Details",
     },
   },
+  Arena : ArenaScreen,
 });
 
 HomeList.navigationOptions = {
-  tabBarIcon: <FontAwesome5 name="home" size={20} color="black" />,
+  tabBarIcon: <FontAwesome5 name="home" size={20} color="white" />,
+  
 };
 
 const Account = createStackNavigator({
@@ -72,13 +76,13 @@ const Account = createStackNavigator({
 Account.navigationOptions = ({ navigation }) => {
   return {
     title: "Account",
-    tabBarIcon: <MaterialIcons name="account-circle" size={20} color="black" />,
+    tabBarIcon: <MaterialIcons name="account-circle" size={20} color="white" />,
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
         <MaterialCommunityIcons
           name="settings-helper"
           size={24}
-          color="black"
+          color="white"
         />
       </TouchableOpacity>
     ),
@@ -109,7 +113,7 @@ const Discover = createStackNavigator({
 
 Discover.navigationOptions = ({ navigation }) => {
   return {
-    tabBarIcon: <MaterialIcons name="emoji-people" size={20} color="black" />,
+    tabBarIcon: <MaterialIcons name="emoji-people" size={20} color="white" />,
   };
 };
 
@@ -124,7 +128,7 @@ const switchNavigator = createSwitchNavigator(
       Home: HomeList,
       Discover: Discover,
       Account: Account,
-    }),
+    },{tabBarOptions:{inactiveBackgroundColor:"#9BA4B4",activeBackgroundColor:"#394867",labelStyle:{color:"white"}}}),
   },
   {}
 );

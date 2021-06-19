@@ -114,13 +114,20 @@ const onRefresh = React.useCallback(() => {
 };
 AccountScreen.navigationOptions = ({ navigation }) => {
   return {
+    headerStyle:{
+      backgroundColor:"#9BA4B4",
+    },
+    headerTitleStyle: {
+      color:"white"
+    },
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.push("Settings")}>
-        <MaterialIcons name="admin-panel-settings" size={30} color="black" />
+        <MaterialIcons name="admin-panel-settings" size={30} color="white" />
       </TouchableOpacity>
     ),
   };
 };
+
 
 const styles = StyleSheet.create({});
 

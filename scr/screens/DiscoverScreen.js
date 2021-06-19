@@ -71,7 +71,7 @@ state.searchList === [
   }, []);
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{backgroundColor:"#F9F9F9"}}>
       <KeyboardAvoidingView style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.scrollView}
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F9F9F9",
     flex: 1,
   },
   scrollView: {},

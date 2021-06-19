@@ -119,6 +119,16 @@ const PostDetailScreen = ({ navigation }) => {
 };
 
 
+PostDetailScreen.navigationOptions = {
+  title: "Post Detail",
+  headerStyle:{
+    backgroundColor:"#9BA4B4",
+  },
+  headerTitleStyle: {
+    color:"white"
+  },
+};
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",

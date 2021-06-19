@@ -15,6 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import PostView from "../components/postComp/PostView";
 import { Context as PostContext } from "../context/PostContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Entypo } from '@expo/vector-icons';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -95,15 +96,26 @@ const HomeScreen = () => {
 HomeScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Rating",
+    headerStyle:{
+      backgroundColor:"#9BA4B4",
+    },
+    headerTitleStyle: {
+      color:"white"
+    },
     headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate("Share")}>
+      <View style={{flexDirection:"row"}}>
+      <TouchableOpacity onPress={() => navigation.navigate("Arena")}>
+      <Entypo name="trophy" size={27} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Share")} style={{marginHorizontal:10}}>
         <FontAwesome
           name="plus"
           size={27}
-          color="black"
+          color="white"
           style={{ marginHorizontal: 10 }}
         />
       </TouchableOpacity>
+      </View>
     ),
   };
 };
@@ -115,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F9F9F9",
   },
   keyboardAvoidingViewContainer: {
     position: "relative",

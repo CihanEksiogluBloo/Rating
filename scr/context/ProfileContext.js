@@ -14,6 +14,8 @@ const profileReducer = (state, action) => {
       return { ...state, userProfile: action.payload };
     case "reset-myProfile":
       return { ...state, myProfile: action.payload };
+    case "arena":
+      return { ...state, arenaProfiles: action.payload };
     default:
       return state;
   }
@@ -60,6 +62,11 @@ const fetchProfile = (dispatch) => async (userID) => {
   dispatch({ type: dispatchType, payload: response.data });
 };
 
+const arena = (dispatch) => async () => {
+  const response = await trackerApi.get("/arena");
+  dispatch({ type: "arena", payload: response.data });
+};
+
 const resetUserProfile = (dispatch) => () => {
   dispatch({ type: "reset-userProfile", payload: [] });
 };
@@ -92,6 +99,7 @@ export const { Provider, Context } = createDataContext(
     updateInfoUser,
     resetUserProfile,
     resetmyProfile,
+    arena
   },
-  { errorMessage: "", myProfile: [], userProfile: [] }
+  { errorMessage: "", myProfile: [], userProfile: [], arenaProfiles: [] }
 );

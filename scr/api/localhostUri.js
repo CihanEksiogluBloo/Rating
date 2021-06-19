@@ -1,4 +1,4 @@
 export const getLocalhostUri = () => {
-  const uri = "https://rating-srv.herokuapp.com";
+  const uri = "http://ae5e8c043030.ngrok.io";
   return uri;
 };

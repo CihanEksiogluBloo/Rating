@@ -1,30 +1,47 @@
-import React,{useContext} from 'react';
-import {Text,StyleSheet} from 'react-native';
-import {Button} from 'react-native-elements';
-import Spacer from '../components/Spacers/Spacer';
-import { Context as AuthContext} from '../context/AuthContext';
-import {SafeAreaView} from "react-native-safe-area-context";
-
+import React, { useContext } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Button, Text } from "react-native-elements";
+import Spacer from "../components/Spacers/Spacer";
+import { Context as AuthContext } from "../context/AuthContext";
 
 const SettingsScreen = () => {
-    const {signout} = useContext(AuthContext);
+  const { signout } = useContext(AuthContext);
 
-    return <>
-    <Text style={{fontSize:48}}> Settings Screen </Text>
-    <Spacer>
-    <Button 
-        title='Sign Out' 
-        onPress={signout}
-    
-    />
-    </Spacer>
-    </>
-}
+  return (
+    <View style={{ flex: 1 }}>
+      <Spacer>
+        <TouchableOpacity onPress={signout}>
+          <Text
+            style={styles.textButtonStyle}
+          >
+            Sign Out
+          </Text>
+        </TouchableOpacity>
+      </Spacer>
+    </View>
+  );
+};
+SettingsScreen.navigationOptions = {
+  title: "Settings",
+  headerStyle: {
+    backgroundColor: "#9BA4B4",
+  },
+  headerTitleStyle: {
+    color: "white",
+  },
 
-
+};
 
 const styles = StyleSheet.create({
-
-})
+  textButtonStyle : {
+    textAlign: "center",
+    backgroundColor: "#325288",
+    padding: 10,
+    fontSize: 15,
+    borderRadius: 20,
+    fontWeight: "bold",
+    color: "white",
+  },
+});
 
 export default SettingsScreen;

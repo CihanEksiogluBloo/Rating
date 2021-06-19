@@ -52,6 +52,19 @@ const UserScreen = ({ navigation }) => {
   );
 };
 
+UserScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title: "User Screen",
+    headerStyle:{
+      backgroundColor:"#9BA4B4",
+    },
+    headerTitleStyle: {
+      color:"white"
+    },
+    
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
