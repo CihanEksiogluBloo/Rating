@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, ListItem, BottomSheet } from "react-native-elements";
+import Toast from 'react-native-simple-toast';
 
 const ProfileActionButton = ({
   followReq,
@@ -40,6 +41,7 @@ const ProfileActionButton = ({
       onPress: () => {
         setIsVisible(false);
         setWhichlist(list);
+        Toast.show('Reported.', Toast.LONG);
       },
     },
     {

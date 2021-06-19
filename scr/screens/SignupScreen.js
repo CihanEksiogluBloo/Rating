@@ -14,7 +14,7 @@ const SignupScreen = () => {
     <View style={styles.container}>
       <ScrollView>
         <AuthForm
-          headerText="Sign Up For Tracker"
+          headerText="Sign Up For Rating"
           errorMessage={state.errorMessage}
           submitButtonText="Sign Up"
           onSubmit={signup}

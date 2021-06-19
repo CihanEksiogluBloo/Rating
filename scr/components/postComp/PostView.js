@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
-import { Text } from "react-native-elements";
+import { Text, Overlay } from "react-native-elements";
 import Rating from "../evaluation/Rating";
 import ProfileAvatar from "../ProfileComps/ProfileAvatar";
 import SocialValuePoint from "../evaluation/SocialValuePoint";
 import { getLocalhostUri } from "../../api/localhostUri";
 import Comment from "../NavigateComps/Comment";
 import { Entypo } from "@expo/vector-icons";
+import Toast from 'react-native-simple-toast';
 
 const localhostUri = getLocalhostUri();
 
@@ -23,9 +24,15 @@ const PostView = ({
   points,
 }) => {
   let lastRateORDefaultValue = 3;
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
   typeof points !== "undefined"
     ? (lastRateORDefaultValue = points[0] ? points[0].star : 3)
     : null;
+
   /* item example
 item === Object {
   "__v": 0,
@@ -69,7 +76,7 @@ item === Object {
             <View style={{ flex: 1, alignItems: "flex-end" }}>
               <SocialValuePoint star={star} />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={toggleOverlay}>
               <Entypo
                 name="dots-three-vertical"
                 size={20}
@@ -90,6 +97,34 @@ item === Object {
           }}
           resizeMode="contain"
         />
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+          <View style={{ padding: 20, justifyContent: "space-evenly" }}>
+            <TouchableOpacity
+              style={styles.dotsButtonContainer}
+              onPress={() => {
+                toggleOverlay();
+                Toast.show('Reported.', Toast.LONG);
+              }}
+            >
+              <Text
+                style={[styles.dotsButton, { backgroundColor: "royalblue" }]}
+              >
+                Report
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.dotsButtonContainer}
+              onPress={() => {
+                toggleOverlay();
+              }}
+            >
+              <Text style={[styles.dotsButton, { backgroundColor: "#E23E57" }]}>
+                X Cancel X
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Overlay>
 
         <View style={{ margin: 2 }}>
           <Text
@@ -147,6 +182,15 @@ item === Object {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  dotsButton: {
+    padding: 10,
+    borderRadius: 10,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  dotsButtonContainer: { padding: 15 },
+});
 
 export default PostView;

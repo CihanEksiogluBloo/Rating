@@ -8,22 +8,24 @@ import {
   ScrollView,
   LogBox,
   KeyboardAvoidingView,
-  ActivityIndicator,
-  Text
+  Text,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import PostView from "../components/postComp/PostView";
 import { Context as PostContext } from "../context/PostContext";
+import { Context as AutContext} from "../context/AuthContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const { state, ratePost, fetchFollowedPosts, resetPost } =
     useContext(PostContext);
+    const { signout } =
+    useContext(AutContext);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -52,13 +54,6 @@ const HomeScreen = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          {refreshing ? (
-            <ActivityIndicator
-              size={Platform.OS == "android" ? 50 : "large"}
-              color="#0000ff"
-            />
-          ) : null}
-
           <SafeAreaProvider style={styles.container}>
             {state.post.length > 0 ? (
               Array.isArray(state.post[0].points) ? (
@@ -84,8 +79,17 @@ const HomeScreen = () => {
                     );
                   }}
                 />
-              ) : <Text>Hi follow someone! or just try login again.</Text>
-            ) : <Text>Hi follow someone! or just try login again.</Text>}
+              ) : (
+                <Text>Hi follow someone! or just try login again.</Text>
+              )
+            ) : (
+              <View>
+                <Text>Hi follow someone! or just try login again.</Text>
+                <TouchableOpacity onPress={()=> {signout() , navigation.navigate("loginFlow")} } style={styles.LoginButtonContainer}>
+                  <Text style={styles.LoginButton}>Login Screen</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </SafeAreaProvider>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -96,25 +100,28 @@ const HomeScreen = () => {
 HomeScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Rating",
-    headerStyle:{
-      backgroundColor:"#9BA4B4",
+    headerStyle: {
+      backgroundColor: "#9BA4B4",
     },
     headerTitleStyle: {
-      color:"white"
+      color: "white",
     },
     headerRight: () => (
-      <View style={{flexDirection:"row"}}>
-      <TouchableOpacity onPress={() => navigation.navigate("Arena")}>
-      <Entypo name="trophy" size={27} color="white" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Share")} style={{marginHorizontal:10}}>
-        <FontAwesome
-          name="plus"
-          size={27}
-          color="white"
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Arena")}>
+          <Entypo name="trophy" size={27} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Share")}
           style={{ marginHorizontal: 10 }}
-        />
-      </TouchableOpacity>
+        >
+          <FontAwesome
+            name="plus"
+            size={27}
+            color="white"
+            style={{ marginHorizontal: 10 }}
+          />
+        </TouchableOpacity>
       </View>
     ),
   };
@@ -131,8 +138,17 @@ const styles = StyleSheet.create({
   },
   keyboardAvoidingViewContainer: {
     position: "relative",
-    flex:0.07,
   },
+  LoginButton: {
+    padding: 10,
+    borderRadius: 10,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+    backgroundColor:"royalblue"
+  },
+  LoginButtonContainer: { padding: 15 },
+
 });
 
 export default HomeScreen;
