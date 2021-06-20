@@ -11,6 +11,7 @@
 
 
 #### APK && Test Account
+###### I'm using heroku servers. Servers sleep when no user. Servers are waking up with app start and login. 
 
 - test@test.com
 - 12345678
